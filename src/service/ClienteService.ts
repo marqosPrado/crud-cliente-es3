@@ -16,7 +16,7 @@ export class ClienteService {
     this.validacoes = new Array<Validar>()
   }
 
-  async cadastrarCliente(req: express.Request, res: express.Response) {
+  async cadastrarCliente(req: express.Request) {
     this.validacoes.push(new ValidarEmail())
     this.validacoes.push(new ValidarCpf())
     const response = req.body
