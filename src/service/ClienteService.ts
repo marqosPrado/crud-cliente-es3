@@ -4,6 +4,8 @@ import {Cliente} from "../domain/cliente/Cliente";
 import {Validar} from "../strategy/Validar";
 import {ValidarEmail} from "../strategy/ValidarEmail";
 import {ValidarCpf} from "../strategy/ValidarCpf";
+import {EmailCadastradoException} from "../domain/cliente/exceptions/email/EmailCadastradoException";
+import {CpfCadastradoException} from "../domain/cliente/exceptions/cpf/CpfCadastradoException";
 
 export class ClienteService {
   private clienteDAO: ClienteDAO;
@@ -28,16 +30,18 @@ export class ClienteService {
         response.senha
     );
     this.validacoes.forEach((validacao) => validacao.processar(cliente))
+    await this.validarCliente(cliente);
+    return this.clienteDAO.save(cliente);
+  }
 
+  private async validarCliente(cliente: Cliente) {
     if (await this.eUsuarioCadastrado(cliente.email)) {
-      throw new Error("Cliente já cadastrado")
+      throw new EmailCadastradoException();
     }
 
     if (await this.eCpfCadastrado(cliente.cpf)) {
-      throw new Error("CPF já cadastrado")
+      throw new CpfCadastradoException();
     }
-
-    return this.clienteDAO.save(cliente);
   }
 
   private async eUsuarioCadastrado(email: string): Promise<boolean> {
