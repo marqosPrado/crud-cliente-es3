@@ -1,6 +1,5 @@
 import express, {Express} from "express";
 import {ClienteService} from "../service/ClienteService";
-import {Exception} from "../domain/cliente/exceptions/Exception";
 
 export class ClienteController {
   private app: Express;
@@ -12,9 +11,8 @@ export class ClienteController {
 
   async cadastrarCliente(req: express.Request, res: express.Response) {
     try {
-      res.status(201).send(await this.clienteService.cadastrarCliente(req, res));
+      res.status(201).send(await this.clienteService.cadastrarCliente(req));
     } catch (e: any) {
-      console.log(e)
       res.status(e.statusCode).send(e);
     }
   }
