@@ -17,7 +17,16 @@ export class ClienteController {
     }
   }
 
+  async paginaCadastro(req: express.Request, res: express.Response) {
+    try {
+      res.status(200).render('cadastro.ejs')
+    } catch (e) {
+      res.status(500).send("Houve um problema inesperado, tente novamente mais tarde")
+    }
+  }
+
   private configurarRotas() {
     this.app.post('/cliente/cadastro', (req, res) => this.cadastrarCliente(req, res));
+    this.app.get('/cliente/cadastro', (req, res) => this.paginaCadastro(req, res));
   }
 }

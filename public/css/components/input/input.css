@@ -1,0 +1,13 @@
+.basic-input {
+    height: 2rem;
+    padding: 10px 15px;
+    border: 2px solid #86868b;
+    font-weight: 400;
+    outline: none;
+    border-radius: 15px;
+    font-size: 16px;
+}
+
+.basic-input:focus {
+    border: 1px solid #5460ff;
+}

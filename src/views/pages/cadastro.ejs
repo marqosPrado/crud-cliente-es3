@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/index.css" type="text/css">
+    <link rel="stylesheet" href="/css/cadastro/cadastro.css" type="text/css">
+    <title>Registrar</title>
+</head>
+<body>
+    <div class="container">
+        <div class="progress">
+            <div class="logo"></div>
+            <div class="steps-container">
+                <ul class="progress-steps">
+                    <li class="step active">
+                        <span>1</span>
+                        <p>Dados Pessoais</p>
+                    </li>
+                    <li class="step">
+                        <span>2</span>
+                        <p>Segurança</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <form action="">
+            <div class="container-form">
+                <div id="form-one" class="form-one form-step">
+                    <div class="form-information">
+                        <h3>Informações pessoais</h3>
+                        <p>Preencha suas informações nos inputs a baixo</p>
+                    </div>
+
+                    <div class="container-input">
+                        <div class="input">
+                            <label class="input-label">Nome completo:</label>
+                            <%- include('./../components/input/input', {
+                                placeHolder: "Nome completo"
+                            }) %>
+                        </div>
+
+                        <div class="input">
+                            <label class="input-label">CPF:</label>
+                            <%- include('./../components/input/input', {
+                                placeHolder: "123.456.789-10"
+                            }) %>
+                        </div>
+
+                        <div class="input">
+                            <label class="input-label">Data de nascimento:</label>
+                            <%- include('./../components/input/input', {
+                                placeHolder: "a@a.com.br"
+                            }) %>
+                        </div>
+
+                        <div class="input">
+                            <label class="input-label">Gênero</label>
+                            <%- include('./../components/selectInput/selectInput', {
+                                name: 'genero',
+                                id: 'genero',
+                                disabled: false,
+                                options: [
+                                    { value: '', label: 'Selecione...', selected: true, disabled: true },
+                                    { value: 'masculino', label: 'Masculino' },
+                                    { value: 'feminino', label: 'Feminino' },
+                                    { value: 'outro', label: 'Outro' }
+                                ]
+                            }) %>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="form-two" style="display: none" class="form-two form-step">
+                    <div class="form-information">
+                        <h3>Informações de segurança</h3>
+                        <p>Preencha suas informações nos inputs a baixo</p>
+                    </div>
+
+                    <div class="container-input">
+                        <div class="input">
+                            <label class="input-label">Email:</label>
+                            <%- include('./../components/input/input', {
+                                placeHolder: "a@abc.com.br"
+                            }) %>
+                        </div>
+
+                        <div class="input">
+                            <label class="input-label">Senha:</label>
+                            <%- include('./../components/passwordInput/passwordInput', {
+                                placeHolder: "Senha"
+                            }) %>
+                        </div>
+
+                        <div class="input">
+                            <label class="input-label">Confirmar senha:</label>
+                            <%- include('./../components/passwordInput/passwordInput', {
+                                placeHolder: "Confirmar senha"
+                            }) %>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div id="form-three" style="display: none" class="form-three form-step">
+                    <div class="form-information">
+                        <h3>Informações de segurança</h3>
+                        <p>Preencha suas informações nos inputs a baixo</p>
+                    </div>
+
+                    <div class="container-input">
+                        <div class="input">
+                            <label class="input-label">Email:</label>
+                            <%- include('./../components/input/input', {
+                            placeHolder: "a@abc.com.br"
+                            }) %>
+                        </div>
+
+                        <div class="input">
+                            <label class="input-label">Senha:</label>
+                            <%- include('./../components/passwordInput/passwordInput', {
+                            placeHolder: "Senha"
+                            }) %>
+                        </div>
+
+                        <div class="input">
+                            <label class="input-label">Confirmar senha:</label>
+                            <%- include('./../components/passwordInput/passwordInput', {
+                            placeHolder: "Confirmar senha"
+                            }) %>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="container-button">
+                    <div id="container-btn-prev">
+                        <%- include('./../components/button/button', {
+                        type: "button",
+                        id: "btn-prev",
+                        style: "second-button default-button",
+                        disable: "disable",
+                        textContent: "Voltar"
+                        })%>
+                    </div>
+                    <div id="container-btn-next">
+                        <%- include('./../components/button/button', {
+                        type: "button",
+                        id: "btn-next",
+                        style: "primary-button default-button",
+                        disable: "",
+                        textContent: "Próximo"
+                        })%>
+                    </div>
+                    <div id="container-btn-submit">
+                        <%- include('./../components/button/button', {
+                        type: "button",
+                        id: "btn-submit",
+                        style: "primary-button default-button",
+                        disable: "",
+                        textContent: "Cadastrar"
+                        })%>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</body>
+<script src="/js/stepEventListenner.js"></script>
+</html>
