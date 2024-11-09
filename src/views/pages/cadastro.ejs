@@ -24,7 +24,7 @@
                 </ul>
             </div>
         </div>
-        <form action="">
+        <form action="/cliente/cadastro" method="post">
             <div class="container-form">
                 <div id="form-one" class="form-one form-step">
                     <div class="form-information">
@@ -36,21 +36,27 @@
                         <div class="input">
                             <label class="input-label">Nome completo:</label>
                             <%- include('./../components/input/input', {
-                                placeHolder: "Nome completo"
+                                placeHolder: "Nome completo",
+                                name: "nome",
+                                id: "nome-input"
                             }) %>
                         </div>
 
                         <div class="input">
                             <label class="input-label">CPF:</label>
                             <%- include('./../components/input/input', {
-                                placeHolder: "123.456.789-10"
+                                placeHolder: "123.456.789-10",
+                                name: "cpf",
+                                id: "cpf-input"
                             }) %>
                         </div>
 
                         <div class="input">
                             <label class="input-label">Data de nascimento:</label>
                             <%- include('./../components/input/input', {
-                                placeHolder: "a@a.com.br"
+                                placeHolder: "dd/mm/aaaa",
+                                name: "dataNascimento",
+                                id: "data-nascimento-input"
                             }) %>
                         </div>
 
@@ -81,59 +87,32 @@
                         <div class="input">
                             <label class="input-label">Email:</label>
                             <%- include('./../components/input/input', {
-                                placeHolder: "a@abc.com.br"
+                                placeHolder: "a@abc.com.br",
+                                name: "email",
+                                id: "email-input"
                             }) %>
                         </div>
 
                         <div class="input">
                             <label class="input-label">Senha:</label>
                             <%- include('./../components/passwordInput/passwordInput', {
-                                placeHolder: "Senha"
+                                placeHolder: "Senha",
+                                name: "senha",
+                                id: "senha-input"
                             }) %>
                         </div>
 
                         <div class="input">
                             <label class="input-label">Confirmar senha:</label>
                             <%- include('./../components/passwordInput/passwordInput', {
-                                placeHolder: "Confirmar senha"
+                                placeHolder: "Confirmar senha",
+                                name: "confirmarSenha",
+                                id: "confirmar-senha-input"
                             }) %>
                         </div>
-
                     </div>
-
                 </div>
 
-                <div id="form-three" style="display: none" class="form-three form-step">
-                    <div class="form-information">
-                        <h3>Informações de segurança</h3>
-                        <p>Preencha suas informações nos inputs a baixo</p>
-                    </div>
-
-                    <div class="container-input">
-                        <div class="input">
-                            <label class="input-label">Email:</label>
-                            <%- include('./../components/input/input', {
-                            placeHolder: "a@abc.com.br"
-                            }) %>
-                        </div>
-
-                        <div class="input">
-                            <label class="input-label">Senha:</label>
-                            <%- include('./../components/passwordInput/passwordInput', {
-                            placeHolder: "Senha"
-                            }) %>
-                        </div>
-
-                        <div class="input">
-                            <label class="input-label">Confirmar senha:</label>
-                            <%- include('./../components/passwordInput/passwordInput', {
-                            placeHolder: "Confirmar senha"
-                            }) %>
-                        </div>
-
-                    </div>
-
-                </div>
 
                 <div class="container-button">
                     <div id="container-btn-prev">
@@ -156,7 +135,7 @@
                     </div>
                     <div id="container-btn-submit">
                         <%- include('./../components/button/button', {
-                        type: "button",
+                        type: "submit",
                         id: "btn-submit",
                         style: "primary-button default-button",
                         disable: "",
@@ -170,4 +149,5 @@
     </div>
 </body>
 <script src="/js/stepEventListenner.js"></script>
+<script type="module" src="/js/inputs/main.js"></script>
 </html>
