@@ -37,15 +37,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function disablePrevButton() {
-        divBtnPrev.disabled = true;
-        divBtnPrev.classList.remove('second-button')
-        divBtnPrev.classList.add('disabled-button');
+        btnPrev.disabled = true;
+        btnPrev.classList.remove('second-button')
+        btnPrev.classList.add('disabled-button');
     }
 
     function enablePrevButton() {
-        divBtnPrev.disabled = false;
-        divBtnPrev.classList.remove('disabled-button');
-        divBtnPrev.classList.add('second-button');
+        btnPrev.disabled = false;
+        btnPrev.classList.remove('disabled-button');
+        btnPrev.classList.add('second-button');
     }
 
     btnNext.addEventListener('click', function() {
