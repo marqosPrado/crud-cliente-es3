@@ -12,16 +12,6 @@
         <div class="progress">
             <div class="logo"></div>
             <div class="steps-container">
-                <ul class="progress-steps">
-                    <li class="step active">
-                        <span>1</span>
-                        <p>Dados Pessoais</p>
-                    </li>
-                    <li class="step">
-                        <span>2</span>
-                        <p>Segurança</p>
-                    </li>
-                </ul>
             </div>
         </div>
         <form action="/cliente/cadastro" method="post">
@@ -36,7 +26,7 @@
                         <div class="input">
                             <label class="input-label">Nome completo:</label>
                             <%- include('./../components/input/input', {
-                                placeHolder: "Nome completo",
+                                placeHolder: "Nome completo*",
                                 name: "nome",
                                 id: "nome-input"
                             }) %>
@@ -45,7 +35,7 @@
                         <div class="input">
                             <label class="input-label">CPF:</label>
                             <%- include('./../components/input/input', {
-                                placeHolder: "123.456.789-10",
+                                placeHolder: "123.456.789-10*",
                                 name: "cpf",
                                 id: "cpf-input"
                             }) %>
@@ -67,7 +57,7 @@
                                 id: 'genero',
                                 disabled: false,
                                 options: [
-                                    { value: '', label: 'Selecione...', selected: true, disabled: true },
+                                    { value: '', label: 'Gênero*', selected: true, disabled: true },
                                     { value: 'masculino', label: 'Masculino' },
                                     { value: 'feminino', label: 'Feminino' },
                                     { value: 'outro', label: 'Outro' }
@@ -87,7 +77,7 @@
                         <div class="input">
                             <label class="input-label">Email:</label>
                             <%- include('./../components/input/input', {
-                                placeHolder: "a@abc.com.br",
+                                placeHolder: "a@abc.com.br*",
                                 name: "email",
                                 id: "email-input"
                             }) %>
@@ -96,7 +86,7 @@
                         <div class="input">
                             <label class="input-label">Senha:</label>
                             <%- include('./../components/passwordInput/passwordInput', {
-                                placeHolder: "Senha",
+                                placeHolder: "Senha*",
                                 name: "senha",
                                 id: "senha-input"
                             }) %>
@@ -105,7 +95,7 @@
                         <div class="input">
                             <label class="input-label">Confirmar senha:</label>
                             <%- include('./../components/passwordInput/passwordInput', {
-                                placeHolder: "Confirmar senha",
+                                placeHolder: "Confirmar senha*",
                                 name: "confirmarSenha",
                                 id: "confirmar-senha-input"
                             }) %>
@@ -129,7 +119,7 @@
                         type: "button",
                         id: "btn-next",
                         style: "primary-button default-button",
-                        disable: "",
+                        disable: "disable",
                         textContent: "Próximo"
                         })%>
                     </div>
