@@ -61,12 +61,10 @@ export function setupBirthDateListener() {
     birthDateInput.addEventListener('blur', () => {
         const birthDate = birthDateInput.value
         if (birthDate.length === '') {
-            console.log("entrou no if data de nascimento")
             birthDateInput.classList.add('invalid');
         } else {
             birthDateInput.classList.remove('invalid')
         }
-        console.log("blur birthDate")
         validateBirthDate(birthDate) ? birthDateInput.classList.remove('invalid') : birthDateInput.classList.add('invalid');
     })
 }
