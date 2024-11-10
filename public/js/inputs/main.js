@@ -1,7 +1,9 @@
 import {
     setupBirthDateListener,
     setupCpfListener,
-    setupEmailListener, setupInputListener,
+    setupEmailListener,
+    setupInputListener,
+    setupPasswordListener,
 } from "./eventListenners/eventListenners.js";
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -9,4 +11,5 @@ document.addEventListener('DOMContentLoaded', () => {
     setupBirthDateListener();
     setupEmailListener();
     setupInputListener()
+    setupPasswordListener()
 })
