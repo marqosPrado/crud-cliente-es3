@@ -1,0 +1,5 @@
+export {setupPasswordListener} from './passwordListener.js'
+export {setupBirthDateListener} from './birthDateListener.js'
+export {setupCpfListener} from './cpfListener.js'
+export {setupEmailListener} from './emailListener.js'
+export {setupInputListener} from './defaultInputListener.js'
