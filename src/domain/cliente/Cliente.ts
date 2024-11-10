@@ -50,7 +50,7 @@ export class Cliente {
   }
 
   set dataNascimento(value: string) {
-    const [dia, mes, ano] = value.split("-").map(Number);
+    const [dia, mes, ano] = value.split("/").map(Number);
     const date = new Date(ano, mes - 1, dia);
     if (date.getMonth() < 1 || date.getMonth() > 12) {
       throw new Error("Mês inválido");
