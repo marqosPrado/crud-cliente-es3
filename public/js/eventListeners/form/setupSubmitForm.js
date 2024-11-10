@@ -8,8 +8,14 @@ export function setupSubmitForm() {
         const form = event.target
         const formData = new FormData(form);
 
+        const data = Object.fromEntries(formData.entries());
+
         try {
-            await axios.post(form.action, formData);
+            await axios.post(form.action, JSON.stringify(data), {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
             createAlertMessage(
                 "Sucesso",
                 "Operação realizada com sucesso",
