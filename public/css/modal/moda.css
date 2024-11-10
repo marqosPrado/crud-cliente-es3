@@ -1,0 +1,96 @@
+.alert-message-background{
+    position: fixed;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: #464646a4;
+    z-index: 100;
+}
+
+.alert-message{
+    position: relative;
+    width: 480px;
+    border-radius: 20px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    padding: 15px;
+}
+
+.alert-message-header{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.alert-title{
+    font-size: 2.4rem;
+    color: #86868b;
+    font-weight: bold;
+}
+
+.alert-message-header button{
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    background-color: #ff8989;
+    border: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.alert-text{
+    font-size: 1.4rem;
+    color: #86868b;
+    padding: 20px 0;
+    margin: 20px 0;
+    border-bottom: 1px solid #86868b;
+    border-top: 1px solid #86868b;
+}
+
+.alert-message-buttons{
+    display: flex;
+    position: relative;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+}
+
+.alert-confirm, .alert-cancel{
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    height: 45px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.alert-cancel{
+    border: 2px solid #5460ff;
+    color: #5460ff;
+    background-color: white;
+}
+
+.alert-confirm{
+    border: 0;
+    color: white;
+    background-color: #5460ff;
+}
+
+.alert-emphasis-text{
+    font-weight: bold;
+}

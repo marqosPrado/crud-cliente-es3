@@ -1,0 +1,9 @@
+.default-button {
+    padding: 20px;
+    border-radius: 20px;
+    min-width: 6.25rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s, border-color 0.3s;
+    font-weight: 700;
+}

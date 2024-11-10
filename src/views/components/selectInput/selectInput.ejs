@@ -1,0 +1,18 @@
+<select
+        name="<%= name %>"
+        id="<%= id %>"
+        class="select-input"
+        <%= disabled ? 'disabled' : '' %>
+>
+    <% if (options && options.length) { %>
+        <% options.forEach(function(option) { %>
+            <option
+                    value="<%= option.value %>"
+                    <%= option.selected ? 'selected' : '' %>
+                    <%= option.disabled ? 'disabled' : '' %>
+            >
+                <%= option.label %>
+            </option>
+        <% }); %>
+    <% } %>
+</select>

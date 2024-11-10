@@ -1,0 +1,11 @@
+.second-button {
+    background-color: #ffff;
+    border: 1px solid #5460ff;
+    color: #5460ff;
+}
+
+.second-button:hover {
+    background-color: #ff8989;
+    color: #ffffff;
+    border: 1px solid #ff8989;
+}
