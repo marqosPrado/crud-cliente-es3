@@ -31,12 +31,8 @@ export function setupCpfListener() {
     })
 
     cpfInput.addEventListener('blur', () => {
-        if (cpfInput.value.length === 0) {
-            cpfInput.classList.add('invalid');
-        } else {
-            cpfInput.classList.remove('invalid')
-        }
-        validateCpf(cpfInput.value) ? cpfInput.classList.remove('invalid') : cpfInput.classList.add('invalid');
+        let cpf = cpfInput.value;
+        validateCpf(cpf) ? cpfInput.classList.remove('invalid') : cpfInput.classList.add('invalid');
     })
 }
 
@@ -60,23 +56,20 @@ export function setupBirthDateListener() {
 
     birthDateInput.addEventListener('blur', () => {
         const birthDate = birthDateInput.value
-        if (birthDate.length === '') {
-            birthDateInput.classList.add('invalid');
-        } else {
-            birthDateInput.classList.remove('invalid')
-        }
         validateBirthDate(birthDate) ? birthDateInput.classList.remove('invalid') : birthDateInput.classList.add('invalid');
     })
 }
 
-export function setupNameListener() {
-    const nameInput = document.getElementById('nome-input');
-    nameInput.addEventListener('blur', () => {
-        const name = nameInput.value;
-        if (name.length === 0) {
-            nameInput.classList.add('invalid');
-        } else {
-            nameInput.classList.remove('invalid');
-        }
+export function setupInputListener() {
+    const inputElements = [...document.getElementsByTagName('input')];
+    inputElements.forEach(inputElement => {
+        inputElement.addEventListener('blur', () => {
+            const input = inputElement.value;
+            if (input.length === 0) {
+                inputElement.classList.add('invalid');
+            } else {
+                inputElement.classList.remove('invalid');
+            }
+        })
     })
 }
