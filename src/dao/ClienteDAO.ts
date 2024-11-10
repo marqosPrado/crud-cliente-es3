@@ -10,7 +10,7 @@ export class ClienteDAO {
   }
 
   async save(cliente: Cliente) {
-    return this.prisma.cliente.create({
+    return this.prisma.clientes.create({
       data: {
         nome: cliente.nome,
         dataNascimento: cliente.dataNascimento,
@@ -25,7 +25,7 @@ export class ClienteDAO {
   }
 
   async findByUser(email: string) {
-    return this.prisma.cliente.findFirst({
+    return this.prisma.clientes.findFirst({
       where: {
         email: email,
       }
@@ -33,7 +33,7 @@ export class ClienteDAO {
   }
 
   async findByCpf(cpf: string) {
-    return this.prisma.cliente.findFirst({
+    return this.prisma.clientes.findFirst({
       where: {
         cpf: cpf
       }
