@@ -10,6 +10,7 @@ export class ClienteDAO {
   }
 
   async save(cliente: Cliente) {
+    const endereco = cliente.enderecos[0]
     return this.prisma.clientes.create({
       data: {
         nome: cliente.nome,
@@ -19,7 +20,24 @@ export class ClienteDAO {
         email: cliente.email,
         cpf: cliente.cpf,
         senha: cliente.senha,
-        status: cliente.status
+        status: cliente.status,
+        enderecos: {
+          create: {
+            logradouro: endereco.logradouro,
+            tipoLogradouro: endereco.tipoLograduro,
+            numero: endereco.numero,
+            bairro: endereco.bairro,
+            cep: endereco.cep,
+            complemento: endereco.complemento,
+            observacoes: endereco.observacoes,
+            paisId: endereco.pais.id,
+            estadoId: endereco.estado.id,
+            cidadeId: endereco.cidade.id
+          }
+        }
+      },
+      include: {
+        enderecos: true
       }
     });
   }

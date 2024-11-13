@@ -1,4 +1,5 @@
 import {Genero} from "./enum/Genero";
+import {Endereco} from "../endereco/Endereco";
 
 export class Cliente {
   private _id?: number;
@@ -10,8 +11,9 @@ export class Cliente {
   private _cpf!: string;
   private _senha!: string;
   private _status!: boolean;
+  private _enderecos!: Endereco[]
 
-  constructor(nome: string, dataNascimento: string, genero: Genero, email: string, cpf: string, senha: string) {
+  constructor(nome: string, dataNascimento: string, genero: Genero, email: string, cpf: string, senha: string, endereco: Endereco) {
     this._nome = nome;
     this.dataNascimento = dataNascimento;
     this._genero = genero;
@@ -20,6 +22,19 @@ export class Cliente {
     this._senha = senha;
     this._status = true;
     this._codigo = this.gerarCodigo();
+    this._enderecos = [endereco]
+  }
+
+  addEndereco(endereco: Endereco): void {
+    if (!endereco) {
+      throw new Error("Endereço não pode ser null");
+    }
+    this._enderecos.push(endereco);
+  }
+
+
+  get enderecos(): Endereco[] {
+    return this._enderecos;
   }
 
   private gerarCodigo(): string {
