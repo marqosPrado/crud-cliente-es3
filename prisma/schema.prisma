@@ -18,36 +18,43 @@ model Clientes {
   senha String @db.VarChar(255)
   status Boolean @default(true)
 
-  Enderecos Enderecos[]
+  enderecos Enderecos[]
 }
 
 model Paises {
-  id Int @id @default(autoincrement())
-  nome String @db.VarChar(50)
-  codigo String @db.Char(4)
-  estados Estados[]
+  id        Int         @id @default(autoincrement())
+  nome      String      @db.VarChar(50)
+  codigo    String?     @db.Char(4)
+  estados   Estados[]
 
-  Enderecos Enderecos[]
+  enderecos Enderecos[]
+
+  @@unique([codigo], name: "codigo_unique")
 }
 
-model Estados {
-  id Int @id @default(autoincrement())
-  nome String @db.VarChar(50)
-  codigo String @db.Char(2)
-  pais Paises @relation(fields: [paisId], references: [id])
-  paisId Int
-  cidades Cidades[]
 
-  Enderecos Enderecos[]
+model Estados {
+  id        Int         @id @default(autoincrement())
+  nome      String      @db.VarChar(50)
+  codigo    String      @db.Char(2)
+  pais      Paises      @relation(fields: [paisId], references: [id])
+  paisId    Int
+  cidades   Cidades[]
+
+  enderecos Enderecos[]
+
+  @@unique([codigo, paisId], name: "codigo_paisId")
 }
 
 model Cidades {
-  id Int @id @default(autoincrement())
-  nome String @db.VarChar(50)
-  estados Estados @relation(fields: [estadoId], references: [id])
-  estadoId Int
+  id        Int         @id @default(autoincrement())
+  nome      String      @db.VarChar(50)
+  estado    Estados     @relation(fields: [estadoId], references: [id])
+  estadoId  Int
 
-  Enderecos Enderecos[]
+  enderecos Enderecos[]
+
+  @@unique([nome, estadoId], name: "nome_estadoId")
 }
 
 model Enderecos {
@@ -65,10 +72,10 @@ model Enderecos {
   cidadeId        Int
   clienteId       Int
 
-  pais            Paises     @relation(fields: [paisId], references: [id])
-  estado          Estados    @relation(fields: [estadoId], references: [id])
-  cidade          Cidades    @relation(fields: [cidadeId], references: [id])
-  cliente         Clientes   @relation(fields: [clienteId], references: [id])
+  pais            Paises     @relation(fields: [paisId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  estado          Estados    @relation(fields: [estadoId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  cidade          Cidades    @relation(fields: [cidadeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  cliente         Clientes   @relation(fields: [clienteId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@index([paisId])
   @@index([estadoId])

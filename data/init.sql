@@ -1,1 +1,2 @@
-CREATE DATABASE 'client-crud-db';
+CREATE DATABASE "client-crud-db";
+
