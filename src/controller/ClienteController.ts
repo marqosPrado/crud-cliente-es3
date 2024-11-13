@@ -13,7 +13,7 @@ export class ClienteController {
     try {
       res.status(201).send(await this.clienteService.cadastrarCliente(req));
     } catch (e: any) {
-      res.status(e.statusCode).send(e);
+      res.send(e);
     }
   }
 
