@@ -58,14 +58,15 @@ model Cidades {
 }
 
 model Enderecos {
-  id              Int        @id @default(autoincrement())
-  logradouro      String     @db.VarChar(255)
-  tipoLogradouro  String     @db.Char(7)
-  numero          Int
-  bairro          String     @db.VarChar(50)
-  cep             String     @db.VarChar(9)
-  complemento     String?    @db.VarChar(255)
-  observacoes     String?    @db.VarChar(255)
+  id               Int        @id @default(autoincrement())
+  logradouro       String     @db.VarChar(255)
+  tipoLogradouro   String     @db.Char(7)
+  numero           Int
+  bairro           String     @db.VarChar(50)
+  cep              String     @db.VarChar(9)
+  complemento      String?    @db.VarChar(255)
+  observacoes      String?    @db.VarChar(255)
+  eEnderecoEntrega Boolean    @db.Boolean
 
   paisId          Int
   estadoId        Int
