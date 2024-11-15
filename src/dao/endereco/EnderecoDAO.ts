@@ -3,7 +3,7 @@ import {PrismaClientDatasource} from "../../database/prisma/PrismaClientDatasour
 import {Endereco} from "../../domain/endereco/Endereco";
 
 export class EnderecoDAO {
-  private prisma: PrismaClient
+  private readonly prisma: PrismaClient
 
   constructor() {
     this.prisma = PrismaClientDatasource.getPrisma();
@@ -12,13 +12,14 @@ export class EnderecoDAO {
   async save(endereco: Endereco, clienteId: number) {
     this.prisma.enderecos.create({
       data: {
-        logradouro: 'Av. Paulista',
-        tipoLogradouro: 'Avenida',
-        numero: 1000,
-        bairro: 'Bela Vista',
-        cep: '01310-100',
-        complemento: 'Apt 101',
-        observacoes: 'Próximo ao metrô',
+        logradouro: endereco.logradouro,
+        tipoLogradouro: endereco.tipoLograduro,
+        numero: endereco.numero,
+        bairro: endereco.bairro,
+        cep: endereco.bairro,
+        complemento: endereco.complemento,
+        observacoes: endereco.observacoes,
+        eEnderecoEntrega: endereco.eEnderecoEntrega,
 
         pais: {
           connect: { id: endereco.pais.id },
