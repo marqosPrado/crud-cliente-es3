@@ -3,7 +3,7 @@ import {PrismaClientDatasource} from "../database/prisma/PrismaClientDatasource"
 import {Cliente} from "../domain/cliente/Cliente";
 
 export class ClienteDAO {
-  private prisma: PrismaClient;
+  private readonly prisma: PrismaClient;
 
   constructor() {
     this.prisma = PrismaClientDatasource.getPrisma();
@@ -30,6 +30,7 @@ export class ClienteDAO {
             cep: endereco.cep,
             complemento: endereco.complemento,
             observacoes: endereco.observacoes,
+            eEnderecoEntrega: endereco.eEnderecoEntrega,
             paisId: endereco.pais.id,
             estadoId: endereco.estado.id,
             cidadeId: endereco.cidade.id

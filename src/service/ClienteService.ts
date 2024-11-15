@@ -1,5 +1,5 @@
 import {ClienteDAO} from "../dao/ClienteDAO";
-import express from "express";
+import { z } from "zod";
 import {Cliente} from "../domain/cliente/Cliente";
 import {Validar} from "../strategy/Validar";
 import {ValidarEmail} from "../strategy/ValidarEmail";
@@ -13,12 +13,13 @@ import {Cidade} from "../domain/endereco/Cidade";
 import {Estado} from "../domain/endereco/Estado";
 import {Pais} from "../domain/endereco/Pais";
 import {Endereco} from "../domain/endereco/Endereco";
+import {createClientSchema} from "../validations/bodyValidations/createClientSchema";
 
 export class ClienteService {
-  private clienteDAO: ClienteDAO;
-  private cidadeDAO: CidadeDAO;
-  private estadoDAO: EstadoDAO;
-  private paisDAO: PaisDAO;
+  private readonly clienteDAO: ClienteDAO;
+  private readonly cidadeDAO: CidadeDAO;
+  private readonly estadoDAO: EstadoDAO;
+  private readonly paisDAO: PaisDAO;
   private validacoes: Array<Validar>
 
   constructor() {
@@ -29,13 +30,17 @@ export class ClienteService {
     this.validacoes = new Array<Validar>()
   }
 
-  async cadastrarCliente(req: express.Request) {
+  async cadastrarCliente(clienteData: z.infer<typeof createClientSchema>) {
     this.validacoes.push(new ValidarEmail())
     this.validacoes.push(new ValidarCpf())
 
-    const { nome, dataNascimento, genero, email, cpf, senha } = req.body
-
     const {
+      nome,
+      dataNascimento,
+      genero,
+      email,
+      cpf,
+      senha,
       logradouro,
       tipoLogradouro,
       numero,
@@ -47,7 +52,7 @@ export class ClienteService {
       pais,
       estado,
       cidade
-    } = req.body
+    } = clienteData;
 
     const [paisId, estadoId, cidadeId] = await Promise.all([
       this.paisDAO.findByName(pais),
@@ -68,8 +73,8 @@ export class ClienteService {
     }
 
     const cidadeEntity = new Cidade(cidadeId.id, cidadeId.nome);
-    const estadoEntity = new Estado(estadoId.id, estadoId.nome, cidade);
-    const paisEntity = new Pais(paisId.id, paisId.nome, estado);
+    const estadoEntity = new Estado(estadoId.id, estadoId.nome, cidadeEntity);
+    const paisEntity = new Pais(paisId.id, paisId.nome, estadoEntity);
     const endereco = new Endereco(
       logradouro,
       tipoLogradouro,
