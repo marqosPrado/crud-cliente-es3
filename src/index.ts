@@ -15,7 +15,7 @@ viewConfig(app);
 
 new ClienteController(new ClienteService(), app);
 
-app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+app.use((err: any, req: express.Request, res: express.Response) => {
   console.error(err.stack);
   res.status(500).json({ message: "Erro interno do servidor" });
 });

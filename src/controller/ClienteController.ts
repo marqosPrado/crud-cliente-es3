@@ -12,7 +12,7 @@ export class ClienteController {
     this.configurarRotas();
   }
 
-  async cadastrarCliente(req: Request, res: Response, next: NextFunction): Promise<void> {
+  async cadastrarCliente(req: Request, res: Response): Promise<void> {
     try {
       const parsedClient = req.body;
       const createdClient = await this.clienteService.cadastrarCliente(parsedClient);
