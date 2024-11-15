@@ -15,6 +15,11 @@ viewConfig(app);
 
 new ClienteController(new ClienteService(), app);
 
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  console.error(err.stack);
+  res.status(500).json({ message: "Erro interno do servidor" });
+});
+
 async function startServer() {
   try {
     await runSeed();
