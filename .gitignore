@@ -5,3 +5,5 @@ node_modules/
 dist/
 
 .env
+/diagrama-classe.asta
+/diagrama-classe.asta.lock

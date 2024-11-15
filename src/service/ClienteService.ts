@@ -1,33 +1,102 @@
 import {ClienteDAO} from "../dao/ClienteDAO";
-import express from "express";
+import { z } from "zod";
 import {Cliente} from "../domain/cliente/Cliente";
 import {Validar} from "../strategy/Validar";
 import {ValidarEmail} from "../strategy/ValidarEmail";
 import {ValidarCpf} from "../strategy/ValidarCpf";
 import {EmailCadastradoException} from "../domain/cliente/exceptions/email/EmailCadastradoException";
 import {CpfCadastradoException} from "../domain/cliente/exceptions/cpf/CpfCadastradoException";
+import {CidadeDAO} from "../dao/endereco/CidadeDAO";
+import {EstadoDAO} from "../dao/endereco/EstadoDAO";
+import {PaisDAO} from "../dao/endereco/PaisDAO";
+import {Cidade} from "../domain/endereco/Cidade";
+import {Estado} from "../domain/endereco/Estado";
+import {Pais} from "../domain/endereco/Pais";
+import {Endereco} from "../domain/endereco/Endereco";
+import {createClientSchema} from "../validations/bodyValidations/createClientSchema";
 
 export class ClienteService {
-  private clienteDAO: ClienteDAO;
+  private readonly clienteDAO: ClienteDAO;
+  private readonly cidadeDAO: CidadeDAO;
+  private readonly estadoDAO: EstadoDAO;
+  private readonly paisDAO: PaisDAO;
   private validacoes: Array<Validar>
 
   constructor() {
     this.clienteDAO = new ClienteDAO();
+    this.cidadeDAO = new CidadeDAO();
+    this.estadoDAO = new EstadoDAO();
+    this.paisDAO = new PaisDAO();
     this.validacoes = new Array<Validar>()
   }
 
-  async cadastrarCliente(req: express.Request) {
+  async cadastrarCliente(clienteData: z.infer<typeof createClientSchema>) {
     this.validacoes.push(new ValidarEmail())
     this.validacoes.push(new ValidarCpf())
-    const response = req.body
+
+    const {
+      nome,
+      dataNascimento,
+      genero,
+      email,
+      cpf,
+      senha,
+      logradouro,
+      tipoLogradouro,
+      numero,
+      bairro,
+      cep,
+      complemento,
+      eEnderecoEntrega,
+      observacoes,
+      pais,
+      estado,
+      cidade
+    } = clienteData;
+
+    const [paisId, estadoId, cidadeId] = await Promise.all([
+      this.paisDAO.findByName(pais),
+      this.estadoDAO.findByName(estado),
+      this.cidadeDAO.findByName(cidade)
+    ])
+
+    if (!paisId) {
+      throw new Error('País não encontrado')
+    }
+
+    if (!estadoId) {
+      throw new Error('Estado não encontrado')
+    }
+
+    if (!cidadeId) {
+      throw new Error('Cidade não encontrada')
+    }
+
+    const cidadeEntity = new Cidade(cidadeId.id, cidadeId.nome);
+    const estadoEntity = new Estado(estadoId.id, estadoId.nome, cidadeEntity);
+    const paisEntity = new Pais(paisId.id, paisId.nome, estadoEntity);
+    const endereco = new Endereco(
+      logradouro,
+      tipoLogradouro,
+      numero,
+      bairro,
+      cep,
+      observacoes,
+      complemento,
+      eEnderecoEntrega,
+      cidadeEntity,
+      estadoEntity,
+      paisEntity
+    );
 
     const cliente = new Cliente(
-        response.nome,
-        response.dataNascimento,
-        response.genero,
-        response.email,
-        response.cpf,
-        response.senha
+      nome,
+      dataNascimento,
+      genero,
+      email,
+      cpf,
+      senha,
+      endereco
     );
     this.validacoes.forEach((validacao) => validacao.processar(cliente))
     await this.validarCliente(cliente);

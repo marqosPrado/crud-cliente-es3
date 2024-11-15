@@ -3,14 +3,15 @@ import {PrismaClientDatasource} from "../database/prisma/PrismaClientDatasource"
 import {Cliente} from "../domain/cliente/Cliente";
 
 export class ClienteDAO {
-  private prisma: PrismaClient;
+  private readonly prisma: PrismaClient;
 
   constructor() {
     this.prisma = PrismaClientDatasource.getPrisma();
   }
 
   async save(cliente: Cliente) {
-    return this.prisma.cliente.create({
+    const endereco = cliente.enderecos[0]
+    return this.prisma.clientes.create({
       data: {
         nome: cliente.nome,
         dataNascimento: cliente.dataNascimento,
@@ -19,13 +20,31 @@ export class ClienteDAO {
         email: cliente.email,
         cpf: cliente.cpf,
         senha: cliente.senha,
-        status: cliente.status
+        status: cliente.status,
+        enderecos: {
+          create: {
+            logradouro: endereco.logradouro,
+            tipoLogradouro: endereco.tipoLograduro,
+            numero: endereco.numero,
+            bairro: endereco.bairro,
+            cep: endereco.cep,
+            complemento: endereco.complemento,
+            observacoes: endereco.observacoes,
+            eEnderecoEntrega: endereco.eEnderecoEntrega,
+            paisId: endereco.pais.id,
+            estadoId: endereco.estado.id,
+            cidadeId: endereco.cidade.id
+          }
+        }
+      },
+      include: {
+        enderecos: true
       }
     });
   }
 
   async findByUser(email: string) {
-    return this.prisma.cliente.findFirst({
+    return this.prisma.clientes.findFirst({
       where: {
         email: email,
       }
@@ -33,7 +52,7 @@ export class ClienteDAO {
   }
 
   async findByCpf(cpf: string) {
-    return this.prisma.cliente.findFirst({
+    return this.prisma.clientes.findFirst({
       where: {
         cpf: cpf
       }
