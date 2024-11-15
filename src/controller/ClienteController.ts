@@ -1,4 +1,4 @@
-import { Express, Response, Request, NextFunction } from "express";
+import { Express, Response, Request } from "express";
 import { z } from "zod";
 import { ClienteService } from "../service/ClienteService";
 import { createClientSchema } from "../validations/bodyValidations/createClientSchema";
