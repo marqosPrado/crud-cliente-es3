@@ -6,6 +6,7 @@ import {
     setupPasswordListener
 } from "./eventListeners/input/index.js";
 import {setupSubmitForm} from "./eventListeners/form/setupSubmitForm.js";
+import {setupPaisesEventListener} from "./eventListeners/form/paisesEventListenner.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     setupCpfListener();
@@ -13,5 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setupEmailListener();
     setupInputListener();
     setupPasswordListener();
-    setupSubmitForm()
+    setupSubmitForm();
+    setupPaisesEventListener();
 })
