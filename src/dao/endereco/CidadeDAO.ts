@@ -8,10 +8,20 @@ export class CidadeDAO {
     this.prisma = PrismaClientDatasource.getPrisma();
   }
 
-  async findByName(cidade: string) {
+  async findById(id: number) {
     return this.prisma.cidades.findFirst({
       where: {
-        nome: cidade
+        id: id
+      }
+    })
+  }
+
+  async findByStateName(estado: string) {
+    return this.prisma.cidades.findMany({
+      where: {
+        estado: {
+          nome: estado
+        }
       }
     })
   }

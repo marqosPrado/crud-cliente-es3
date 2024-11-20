@@ -8,11 +8,29 @@ export class PaisDAO {
     this.prisma = PrismaClientDatasource.getPrisma();
   }
 
-  async findByName(pais: string) {
+  async findById(id: number) {
     return this.prisma.paises.findFirst({
       where: {
-        nome: pais
+        id: id
       }
     })
+  }
+
+  async findAll() {
+    return this.prisma.paises.findMany({
+      include: {
+        estados: true
+      }
+    });
+  }
+
+  async findEstadosByPais(paisId: number) {
+    return this.prisma.estados.findMany({
+      where: {
+        pais: {
+          id: paisId
+        }
+      }
+    });
   }
 }
