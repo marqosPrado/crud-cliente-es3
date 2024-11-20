@@ -55,9 +55,9 @@ export class ClienteService {
     } = clienteData;
 
     const [paisId, estadoId, cidadeId] = await Promise.all([
-      this.paisDAO.findByName(pais),
-      this.estadoDAO.findByName(estado),
-      this.cidadeDAO.findByName(cidade)
+      this.paisDAO.findById(parseInt(pais)),
+      this.estadoDAO.findById(parseInt(estado)),
+      this.cidadeDAO.findById(parseInt(cidade))
     ])
 
     if (!paisId) {
@@ -73,17 +73,29 @@ export class ClienteService {
     }
 
     const cidadeEntity = new Cidade(cidadeId.id, cidadeId.nome);
-    const estadoEntity = new Estado(estadoId.id, estadoId.nome, cidadeEntity);
-    const paisEntity = new Pais(paisId.id, paisId.nome, estadoEntity);
+    const estadoEntity = new Estado(estadoId.id, estadoId.nome);
+    estadoEntity.cidade = cidadeEntity;
+
+    const paisEntity = new Pais(paisId.id, paisId.nome, [estadoEntity], paisId.codigo);
+    paisEntity.estado = [estadoEntity];
+
+    const tipoEndereco = eEnderecoEntrega === 'true'
+    let parsedNum;
+    try {
+      parsedNum = parseInt(numero)
+    } catch (error) {
+      throw new Error('Número inválido')
+    }
+
     const endereco = new Endereco(
       logradouro,
       tipoLogradouro,
-      numero,
+      parsedNum,
       bairro,
       cep,
       observacoes,
       complemento,
-      eEnderecoEntrega,
+      tipoEndereco,
       cidadeEntity,
       estadoEntity,
       paisEntity

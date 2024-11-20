@@ -15,11 +15,11 @@ export const createClientSchema = z.object({
   tipoLogradouro: z.nativeEnum(TipoLogradouro, {
     errorMap: () => ({ message: "Tipo de logradouro inválido" })
   }),
-  numero: z.number(),
+  numero: z.string(),
   bairro: z.string(),
   cep: z.string().min(9).max(9),
   complemento: z.string().optional().default(""),
-  eEnderecoEntrega: z.boolean(),
+  eEnderecoEntrega: z.string(),
   observacoes: z.string().max(255).optional().default(""),
   pais: z.string(),
   estado: z.string(),
