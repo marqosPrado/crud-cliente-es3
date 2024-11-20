@@ -4,6 +4,10 @@ import viewConfig from "./controller/config/ViewConfig";
 import {ClienteController} from "./controller/ClienteController";
 import {ClienteService} from "./service/ClienteService";
 import {runSeed} from "../prisma/seed";
+import {EstadoController} from "./controller/Endereco/EstadoController";
+import {EstadoService} from "./service/Endereco/EstadoService";
+import {PaisController} from "./controller/Endereco/PaisController";
+import {PaisService} from "./service/Endereco/PaisService";
 
 const app = express();
 const PORT = 3000;
@@ -14,11 +18,8 @@ app.use(express.urlencoded({ extended: true }));
 viewConfig(app);
 
 new ClienteController(new ClienteService(), app);
-
-app.use((err: any, req: express.Request, res: express.Response) => {
-  console.error(err.stack);
-  res.status(500).json({ message: "Erro interno do servidor" });
-});
+const estadoController = new EstadoController(new EstadoService(), app);
+new PaisController(new PaisService(), app, estadoController)
 
 async function startServer() {
   try {

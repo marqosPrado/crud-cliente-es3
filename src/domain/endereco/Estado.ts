@@ -6,10 +6,9 @@ export class Estado {
   private _codigo?: string;
   private _cidade!: Cidade
 
-  constructor(id: number, nome: string, cidade: Cidade) {
-    this._nome = nome;
-    this._cidade = cidade;
+  constructor(id: number, nome: string, codigo?: string) {
     this._id = id;
+    this._nome = nome;
   }
 
   get id(): number {

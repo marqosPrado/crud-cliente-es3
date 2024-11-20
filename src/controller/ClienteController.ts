@@ -14,7 +14,9 @@ export class ClienteController {
 
   async cadastrarCliente(req: Request, res: Response): Promise<void> {
     try {
-      const parsedClient = req.body;
+      let parsedClient = req.body;
+      const addressNumber = parseInt(parsedClient.numero);
+      parsedClient = { ...parsedClient, numero: addressNumber };
       const createdClient = await this.clienteService.cadastrarCliente(parsedClient);
       res.status(201).send(createdClient);
     } catch (e: any) {
@@ -50,6 +52,8 @@ export class ClienteController {
       this.cadastrarCliente.bind(this)
     );
 
-    this.app.get("/cliente/cadastro", this.paginaCadastro.bind(this));
+    this.app.get(
+      "/cliente/cadastro",
+      this.paginaCadastro.bind(this));
   }
 }

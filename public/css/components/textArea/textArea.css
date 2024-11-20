@@ -1,14 +1,19 @@
-.select-input {
-    height: 3rem;
+.text-area {
+    width: 100%;
+}
+
+.text-area-input {
+    height: 6rem;
+    width: 100%;
     padding: 10px 15px;
-    font-weight: 400;
     border: 2px solid #86868b;
+    font-weight: 400;
     outline: none;
     border-radius: 15px;
     font-size: 16px;
-    background-color: #ffffff;
+    resize: none;
 }
 
-.select-input:focus {
+.text-area-input:focus {
     border: 1px solid #5460ff;
 }

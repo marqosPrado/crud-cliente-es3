@@ -4,5 +4,6 @@
 @import url("components/button/defaultStyleButton.css");
 @import url("components/selectInput/selectInput.css");
 @import url("components/button/disabledButton.css");
+@import url("components/textArea/textArea.css");
 @import url("default/invalidInput.css");
 @import url("modal/moda.css");
