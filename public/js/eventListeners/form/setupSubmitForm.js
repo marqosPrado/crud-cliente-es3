@@ -19,7 +19,9 @@ export function setupSubmitForm() {
             createAlertMessage(
                 "Sucesso",
                 "Operação realizada com sucesso",
-                "OK"
+                "OK",
+                null,
+                "cliente/consulta"
             )
         } catch (error) {
             createAlertMessage(
