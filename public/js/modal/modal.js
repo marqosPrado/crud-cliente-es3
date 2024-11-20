@@ -27,6 +27,7 @@ export function generateModalHTML(title, text, buttonsHTML) {
 }
 
 export function setupEventListeners(alertMessage, haveTwoButton, endpoint) {
+    const BASE_URL = "http://localhost:3000";
     const exitButton = alertMessage.querySelector("#exit-alert");
     exitButton.addEventListener("click", () => alertMessage.remove());
 
@@ -38,7 +39,7 @@ export function setupEventListeners(alertMessage, haveTwoButton, endpoint) {
             return;
         }
 
-        // window.location.href = `${BASE_URL}/${endpoint}`;
+        window.location.href = `${BASE_URL}/${endpoint}`;
     });
 
     if (haveTwoButton) {
