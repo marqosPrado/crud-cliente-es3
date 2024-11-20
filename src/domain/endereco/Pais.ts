@@ -3,13 +3,14 @@ import {Estado} from "./Estado";
 export class Pais {
   private _id!: number
   private _nome!: string
-  private _codigo?: string
-  private _estado!: Estado
+  private _codigo?: string | null | undefined
+  private _estado!: Estado[]
 
-  constructor(id: number, nome: string, estado: Estado) {
+  constructor(id: number, nome: string, estado: Estado[], codigo?: string | null) {
     this._nome = nome;
-    this._estado = estado
+    this._estado = estado;
     this._id = id;
+    this._codigo = codigo;
   }
 
   get id(): number {
@@ -28,7 +29,7 @@ export class Pais {
     this._nome = value;
   }
 
-  get codigo(): string | undefined {
+  get codigo(): string | undefined | null {
     return this._codigo;
   }
 
@@ -37,11 +38,12 @@ export class Pais {
   }
 
 
-  get estado(): Estado {
+  get estado(): Estado[] {
     return this._estado;
   }
 
-  set estado(value: Estado) {
+  set estado(value: Estado[]) {
     this._estado = value;
   }
+
 }
