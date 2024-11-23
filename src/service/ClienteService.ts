@@ -115,6 +115,10 @@ export class ClienteService {
     return this.clienteDAO.save(cliente);
   }
 
+  async disableClient(clientId: number) {
+    return this.clienteDAO.disableClient(clientId);
+  }
+
   private async validarCliente(cliente: Cliente) {
     if (await this.eUsuarioCadastrado(cliente.email)) {
       throw new EmailCadastradoException();
@@ -135,8 +139,8 @@ export class ClienteService {
     return cpfCliente !== null;
   }
 
-  async findAll() {
-    return this.clienteDAO.findAll();
+  async findAllActiveClients() {
+    return this.clienteDAO.findAllActiveClients();
   }
 
   private toString(date: Date) {
