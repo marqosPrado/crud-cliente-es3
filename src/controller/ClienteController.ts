@@ -47,11 +47,20 @@ export class ClienteController {
 
   async paginaConsulta(req: Request, res: Response) {
     try {
-      const clientes = await this.clienteService.findAll();
-      console.log(clientes)
+      const clientes = await this.clienteService.findAllActiveClients();
       res.status(200).render("consulta.ejs", { clientes: clientes });
 
     } catch (e) {
+      res.status(500).send("Houve um problema inesperado, tente novamente mais tarde");
+    }
+  }
+
+  async disableClient(req: Request, res: Response) {
+    try {
+      const clientId = Number(req.params.clientId);
+      await this.clienteService.disableClient(clientId);
+      res.status(200).send("Cliente desativado com sucesso!");
+    } catch (error) {
       res.status(500).send("Houve um problema inesperado, tente novamente mais tarde");
     }
   }
@@ -70,6 +79,11 @@ export class ClienteController {
     this.app.get(
       "/cliente/consulta",
       this.paginaConsulta.bind(this)
+    )
+
+    this.app.patch(
+      "/cliente/:clientId/desativar",
+      this.disableClient.bind(this)
     )
   }
 }
