@@ -134,4 +134,12 @@ export class ClienteService {
     const cpfCliente = await this.clienteDAO.findByCpf(cpf)
     return cpfCliente !== null;
   }
+
+  async findAll() {
+    return this.clienteDAO.findAll();
+  }
+
+  private toString(date: Date) {
+    return date.toString();
+  }
 }

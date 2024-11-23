@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Clientes Registrados</title>
+    <link rel="stylesheet" href="/css/consulta/consulta.css" type="text/css">
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">Clientes Registrados</h1>
+        </div>
+        <div class="card-content">
+            <div class="search-and-filter">
+                <input type="text" class="search-input" placeholder="Buscar por nome, CPF ou email">
+            </div>
+            <table class="client-table">
+                <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Email</th>
+                    <th>Cidade</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for (let i=0; i < clientes.length; i++){ %>
+                    <tr>
+                        <td><%= clientes[i].nome %></td>
+                        <td><%= clientes[i].cpf %></td>
+                        <td><%= clientes[i].email %></td>
+                        <td><%= clientes[i].enderecos[0].cidade.nome %></td>
+                    </tr>
+                <% } %>
+                </tbody>
+            </table>
+            <div class="pagination">
+                <div class="pagination-info">
+                    Mostrando 1 - 5 de 5 clientes
+                </div>
+                <div class="pagination-controls">
+                    <button class="btn btn-prev" disabled>Anterior</button>
+                    <button class="btn btn-next" disabled>Próxima</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

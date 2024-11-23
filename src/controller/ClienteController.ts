@@ -45,6 +45,17 @@ export class ClienteController {
     }
   }
 
+  async paginaConsulta(req: Request, res: Response) {
+    try {
+      const clientes = await this.clienteService.findAll();
+      console.log(clientes)
+      res.status(200).render("consulta.ejs", { clientes: clientes });
+
+    } catch (e) {
+      res.status(500).send("Houve um problema inesperado, tente novamente mais tarde");
+    }
+  }
+
   private configurarRotas() {
     this.app.post(
       "/cliente/cadastro",
@@ -55,5 +66,10 @@ export class ClienteController {
     this.app.get(
       "/cliente/cadastro",
       this.paginaCadastro.bind(this));
+
+    this.app.get(
+      "/cliente/consulta",
+      this.paginaConsulta.bind(this)
+    )
   }
 }

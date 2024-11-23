@@ -58,4 +58,16 @@ export class ClienteDAO {
       }
     })
   }
+
+  async findAll() {
+    return this.prisma.clientes.findMany({
+      include: {
+        enderecos: {
+          include: {
+            cidade: true
+          }
+        }
+      }
+    })
+  }
 }
