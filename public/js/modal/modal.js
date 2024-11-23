@@ -1,3 +1,5 @@
+const BASE_URL = "http://localhost:3000";
+
 export function generateButtonsHTML(textButtonOne, textButtonTwo) {
     return textButtonTwo
         ? `
@@ -15,7 +17,7 @@ export function generateModalHTML(title, text, buttonsHTML) {
             <div class="alert-message-header">
                 <h3 class="alert-title">${title}</h3>
                 <button id="exit-alert" class="exit-alert"> 
-                    <img src="/assets/img/componentIcons/cancel-no-circle-icon.svg" alt="cancel-icon"> 
+                    <svg fill="#000000" width="32px" height="32px" viewBox="-3.5 0 19 19" xmlns="http://www.w3.org/2000/svg" class="cf-icon-svg"><path d="M11.383 13.644A1.03 1.03 0 0 1 9.928 15.1L6 11.172 2.072 15.1a1.03 1.03 0 1 1-1.455-1.456l3.928-3.928L.617 5.79a1.03 1.03 0 1 1 1.455-1.456L6 8.261l3.928-3.928a1.03 1.03 0 0 1 1.455 1.456L7.455 9.716z"/></svg> 
                 </button>
             </div>
             <p class="alert-text">${text}</p>
@@ -27,7 +29,6 @@ export function generateModalHTML(title, text, buttonsHTML) {
 }
 
 export function setupEventListeners(alertMessage, haveTwoButton, endpoint) {
-    const BASE_URL = "http://localhost:3000";
     const exitButton = alertMessage.querySelector("#exit-alert");
     exitButton.addEventListener("click", () => alertMessage.remove());
 
@@ -61,4 +62,33 @@ export function createAlertMessage(title, text, textButtonOne, textButtonTwo = n
     body.appendChild(alertMessage);
 
     setupEventListeners(alertMessage, haveTwoButton, endpoint);
+}
+
+export function createConfirmModal(title, message, cancelButtonText, confirmButtonText, onConfirm, onCancel, endpoint) {
+    const buttonsHTML = generateButtonsHTML(cancelButtonText, confirmButtonText);
+    const domContent = generateModalHTML(title, message, buttonsHTML);
+
+    const alertBackground = document.createElement("div");
+    alertBackground.classList.add("alert-message-background");
+    alertBackground.innerHTML = domContent;
+
+    document.body.appendChild(alertBackground);
+
+    alertBackground.querySelector("#exit-alert").addEventListener("click", () => {
+        alertBackground.remove();
+        // onCancel();
+    });
+
+    alertBackground.querySelector("#alert-cancel").addEventListener("click", () => {
+        alertBackground.remove();
+        // onCancel();
+    });
+
+    alertBackground.querySelector("#alert-confirm").addEventListener("click", () => {
+        alertBackground.remove();
+        onConfirm();
+        if (endpoint) {
+            window.location.href = `${BASE_URL}/${endpoint}`;
+        }
+    });
 }

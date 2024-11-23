@@ -59,14 +59,29 @@ export class ClienteDAO {
     })
   }
 
-  async findAll() {
+  async findAllActiveClients() {
     return this.prisma.clientes.findMany({
       include: {
         enderecos: {
           include: {
+            estado: true,
             cidade: true
           }
         }
+      },
+      where: {
+        status: true
+      }
+    })
+  }
+
+  async disableClient(clientId: number) {
+    return this.prisma.clientes.update({
+      where: {
+        id: clientId
+      },
+      data: {
+        status: false
       }
     })
   }
