@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/dadosPessoais/dados-pessoais.css">
+    <link rel="stylesheet" href="/css/index.css" type="text/css">
+    <title>Edite os dados pessoais</title>
+</head>
+<body>
+<h1>Editar Perfil</h1>
+<form id="edit-profile-form">
+    <div class="input">
+        <%
+            const propertiesName = {
+                placeHolder: "Nome completo*",
+                type: "text",
+                name: "nome",
+                id: "nome-input",
+                value: cliente.nome
+            }
+        %>
+        <label class="input-label">Nome completo:</label>
+        <%- include('./../components/input/input', propertiesName) %>
+    </div>
+
+    <div class="input">
+        <%
+            const propertiesCPF =  {
+                placeHolder: "123.456.789-10*",
+                type: "text",
+                name: "cpf",
+                id: "cpf-input",
+                value: cliente.cpf
+            }
+        %>
+        <label class="input-label">CPF:</label>
+        <%- include('./../components/input/input', propertiesCPF) %>
+    </div>
+
+    <div class="input">
+        <label class="input-label">Gênero:</label>
+        <%- include('./../components/selectInput/selectInput', {
+            name: 'genero',
+            id: 'genero',
+            disabled: false,
+            options: [
+                { value: '', label: 'Selecione', selected: true, disabled: true },
+                { value: 'MASCULINO', label: 'Masculino' },
+                { value: 'FEMININO', label: 'Feminino' },
+                { value: 'OUTRO', label: 'Outro' }
+            ]
+        }) %>
+    </div>
+
+    <div id="container-btn-submit">
+        <%- include('./../components/button/button', {
+        type: "button",
+        id: "btn-salvar-alteracao",
+        style: "primary-button default-button",
+        disable: "",
+        textContent: "Salvar alterações"
+        })%>
+    </div>
+</form>
+<script type="module" src="/js/pages/edit/dadosPessoais/setupEventListenner.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="module" src="/js/main.js"></script>
+</body>
+</html>
+

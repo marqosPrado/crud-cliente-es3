@@ -16,7 +16,6 @@ export function setupSubmitForm() {
                     'Content-Type': 'application/json'
                 }
             });
-            console.log(JSON.stringify(data))
             createAlertMessage(
                 "Sucesso",
                 "Operação realizada com sucesso",
@@ -25,7 +24,6 @@ export function setupSubmitForm() {
                 "cliente/consulta"
             )
         } catch (error) {
-            console.log(JSON.stringify(data))
             createAlertMessage(
                 "Houve um problema",
                 "Erro na operação, tente novamente mais tarde",

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Cliente</title>
+    <link rel="stylesheet" href="/css/detalhes/detalhes.css">
+</head>
+<body>
+<div class="container">
+    <% const id = cliente.id %>
+    <h1>Detalhes do Cliente</h1>
+
+    <div class="card" id="personal-data">
+        <div class="header">
+            <h2>Dados Pessoais</h2>
+            <div class="add-edit-container">
+                <%
+                    const pathEditDadosPessoais = `/cliente/${id}/edicao`
+                %>
+                <div class="icon-header">
+                    <a style="display: flex; justify-content: center; align-items: center;" href="<%= pathEditDadosPessoais %>">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 50 50">
+                            <path d="M 43.125 2 C 41.878906 2 40.636719 2.488281 39.6875 3.4375 L 38.875 4.25 L 45.75 11.125 C 45.746094 11.128906 46.5625 10.3125 46.5625 10.3125 C 48.464844 8.410156 48.460938 5.335938 46.5625 3.4375 C 45.609375 2.488281 44.371094 2 43.125 2 Z M 37.34375 6.03125 C 37.117188 6.0625 36.90625 6.175781 36.75 6.34375 L 4.3125 38.8125 C 4.183594 38.929688 4.085938 39.082031 4.03125 39.25 L 2.03125 46.75 C 1.941406 47.09375 2.042969 47.457031 2.292969 47.707031 C 2.542969 47.957031 2.90625 48.058594 3.25 47.96875 L 10.75 45.96875 C 10.917969 45.914063 11.070313 45.816406 11.1875 45.6875 L 43.65625 13.25 C 44.054688 12.863281 44.058594 12.226563 43.671875 11.828125 C 43.285156 11.429688 42.648438 11.425781 42.25 11.8125 L 9.96875 44.09375 L 5.90625 40.03125 L 38.1875 7.75 C 38.488281 7.460938 38.578125 7.011719 38.410156 6.628906 C 38.242188 6.246094 37.855469 6.007813 37.4375 6.03125 C 37.40625 6.03125 37.375 6.03125 37.34375 6.03125 Z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-content">
+            <div class="info-group">
+                <label>Nome:</label>
+                <p id="name"><%= cliente.nome %></p>
+            </div>
+            <div class="info-group">
+                <label>CPF:</label>
+                <p id="cpf"><%= cliente.cpf %></p>
+            </div>
+            <div class="info-group">
+                <% function formatarData(dataString) {
+                    const data = new Date(dataString);
+                    const dia = ('0' + data.getUTCDate()).slice(-2);
+                    const mes = ('0' + (data.getUTCMonth() + 1)).slice(-2);
+                    const ano = data.getUTCFullYear();
+                    return `${dia}/${mes}/${ano}`;
+                } %>
+                <label>Data de Nascimento:</label>
+                <p id="birthDate"><%= formatarData(cliente.dataNascimento) %></p>
+            </div>
+            <div class="info-group">
+                <label>Telefone:</label>
+                <p id="phone"></p>
+            </div>
+            <div class="info-group">
+                <label>Gênero:</label>
+                <p id="gender"><%= cliente.genero %></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" id="address">
+        <div class="header">
+            <h2>Endereço</h2>
+            <div class="add-edit-container">
+                <div id="edit-end" class="icon-header">
+                    <%
+                        const path = `/clientes/${id}/enderecos/new`
+                    %>
+                    <a style="display: flex; justify-content: center; align-items: center;" href="<%= path %>">
+                        <img width="32px" height="32px" src="https://img.icons8.com/sf-regular/48/add.png" alt="add"/>
+                    </a>
+                </div>
+                <%
+                    const pathEditEnd = `/clientes/${id}/edit`
+                %>
+                <div class="icon-header">
+                    <a style="display: flex; justify-content: center; align-items: center;" href="<%= pathEditEnd %>">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 50 50">
+                            <path d="M 43.125 2 C 41.878906 2 40.636719 2.488281 39.6875 3.4375 L 38.875 4.25 L 45.75 11.125 C 45.746094 11.128906 46.5625 10.3125 46.5625 10.3125 C 48.464844 8.410156 48.460938 5.335938 46.5625 3.4375 C 45.609375 2.488281 44.371094 2 43.125 2 Z M 37.34375 6.03125 C 37.117188 6.0625 36.90625 6.175781 36.75 6.34375 L 4.3125 38.8125 C 4.183594 38.929688 4.085938 39.082031 4.03125 39.25 L 2.03125 46.75 C 1.941406 47.09375 2.042969 47.457031 2.292969 47.707031 C 2.542969 47.957031 2.90625 48.058594 3.25 47.96875 L 10.75 45.96875 C 10.917969 45.914063 11.070313 45.816406 11.1875 45.6875 L 43.65625 13.25 C 44.054688 12.863281 44.058594 12.226563 43.671875 11.828125 C 43.285156 11.429688 42.648438 11.425781 42.25 11.8125 L 9.96875 44.09375 L 5.90625 40.03125 L 38.1875 7.75 C 38.488281 7.460938 38.578125 7.011719 38.410156 6.628906 C 38.242188 6.246094 37.855469 6.007813 37.4375 6.03125 C 37.40625 6.03125 37.375 6.03125 37.34375 6.03125 Z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-content">
+            <div class="info-group">
+                <label>Tipo de Logradouro:</label>
+                <p id="addressType"><%= cliente.enderecos[0].tipoLogradouro %></p>
+            </div>
+            <div class="info-group">
+                <label>Logradouro:</label>
+                <p id="street"><%= cliente.enderecos[0].logradouro %></p>
+            </div>
+            <div class="info-group">
+                <label>Bairro:</label>
+                <p id="neighborhood"><%= cliente.enderecos[0].bairro %></p>
+            </div>
+            <div class="info-group">
+                <label>Complemento:</label>
+                <p id="complement"><%= cliente.enderecos[0].complemento %></p>
+            </div>
+            <div class="info-group">
+                <label>Número:</label>
+                <p id="number"><%= cliente.enderecos[0].numero %></p>
+            </div>
+            <div class="info-group">
+                <label>CEP:</label>
+                <p id="zipCode"><%= cliente.enderecos[0].cep %></p>
+            </div>
+            <div class="info-group">
+                <label>País:</label>
+                <p id="country"><%= cliente.enderecos[0].pais.nome %></p>
+            </div>
+            <div class="info-group">
+                <label>Estado:</label>
+                <p id="state"><%= cliente.enderecos[0].estado.nome %></p>
+            </div>
+            <div class="info-group">
+                <label>Cidade:</label>
+                <p id="city"><%= cliente.enderecos[0].cidade.nome %></p>
+            </div>
+            <div class="info-group">
+                <%
+                    let isDeliveryAddress = cliente.enderecos[0].eEnderecoEntrega ? 'Sim' : 'Não';
+                %>
+                <label>Endereço de Entrega:</label>
+                <p id="isDeliveryAddress"><%= isDeliveryAddress %></p>
+            </div>
+            <div class="info-group full-width">
+                <label>Observações:</label>
+                <p id="observations"><%= cliente.enderecos[0].observacoes %></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" id="credit-card">
+        <div class="header">
+            <h2>Cartão de Crédito</h2>
+            <div class="add-edit-container">
+                <div id="edit-card" class="icon-header">
+                    <%
+                        const pathCartoes = `/clientes/${id}/cartoes/new`
+                    %>
+                    <a style="display: flex; justify-content: center; align-items: center;" href="<%= pathCartoes %>">
+                        <img width="32px" height="32px" src="https://img.icons8.com/sf-regular/48/add.png" alt="add"/>
+                    </a>
+                </div>
+                <div class="icon-header">
+                    <a style="display: flex; justify-content: center; align-items: center;" href="<%= path %>">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 50 50">
+                            <path d="M 43.125 2 C 41.878906 2 40.636719 2.488281 39.6875 3.4375 L 38.875 4.25 L 45.75 11.125 C 45.746094 11.128906 46.5625 10.3125 46.5625 10.3125 C 48.464844 8.410156 48.460938 5.335938 46.5625 3.4375 C 45.609375 2.488281 44.371094 2 43.125 2 Z M 37.34375 6.03125 C 37.117188 6.0625 36.90625 6.175781 36.75 6.34375 L 4.3125 38.8125 C 4.183594 38.929688 4.085938 39.082031 4.03125 39.25 L 2.03125 46.75 C 1.941406 47.09375 2.042969 47.457031 2.292969 47.707031 C 2.542969 47.957031 2.90625 48.058594 3.25 47.96875 L 10.75 45.96875 C 10.917969 45.914063 11.070313 45.816406 11.1875 45.6875 L 43.65625 13.25 C 44.054688 12.863281 44.058594 12.226563 43.671875 11.828125 C 43.285156 11.429688 42.648438 11.425781 42.25 11.8125 L 9.96875 44.09375 L 5.90625 40.03125 L 38.1875 7.75 C 38.488281 7.460938 38.578125 7.011719 38.410156 6.628906 C 38.242188 6.246094 37.855469 6.007813 37.4375 6.03125 C 37.40625 6.03125 37.375 6.03125 37.34375 6.03125 Z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-content">
+            <div class="info-group">
+                <label>Número do Cartão:</label>
+                <p id="cardNumber"><%= cliente.cartoes[0].numero %></p>
+            </div>
+            <div class="info-group">
+                <label>Nome do Titular:</label>
+                <p id="cardHolderName"><%= cliente.cartoes[0].nome %></p>
+            </div>
+            <div class="info-group">
+                <label>Bandeira do Cartão:</label>
+                <p id="cardBrand"><%= cliente.cartoes[0].bandeira %></p>
+            </div>
+            <div class="info-group">
+                <label>Validade:</label>
+                <p id="expirationDate"><%= cliente.cartoes[0].validade %></p>
+            </div>
+            <div class="info-group">
+                <label>CVV:</label>
+                <p id="cvv"><%= cliente.cartoes[0].cvv %></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" id="security-info">
+        <div class="header">
+            <h2>Informações de Segurança</h2>
+            <div class="icon-header">
+                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 50 50">
+                    <path d="M 43.125 2 C 41.878906 2 40.636719 2.488281 39.6875 3.4375 L 38.875 4.25 L 45.75 11.125 C 45.746094 11.128906 46.5625 10.3125 46.5625 10.3125 C 48.464844 8.410156 48.460938 5.335938 46.5625 3.4375 C 45.609375 2.488281 44.371094 2 43.125 2 Z M 37.34375 6.03125 C 37.117188 6.0625 36.90625 6.175781 36.75 6.34375 L 4.3125 38.8125 C 4.183594 38.929688 4.085938 39.082031 4.03125 39.25 L 2.03125 46.75 C 1.941406 47.09375 2.042969 47.457031 2.292969 47.707031 C 2.542969 47.957031 2.90625 48.058594 3.25 47.96875 L 10.75 45.96875 C 10.917969 45.914063 11.070313 45.816406 11.1875 45.6875 L 43.65625 13.25 C 44.054688 12.863281 44.058594 12.226563 43.671875 11.828125 C 43.285156 11.429688 42.648438 11.425781 42.25 11.8125 L 9.96875 44.09375 L 5.90625 40.03125 L 38.1875 7.75 C 38.488281 7.460938 38.578125 7.011719 38.410156 6.628906 C 38.242188 6.246094 37.855469 6.007813 37.4375 6.03125 C 37.40625 6.03125 37.375 6.03125 37.34375 6.03125 Z"></path>
+                </svg>
+            </div>
+        </div>
+        <div class="card-content">
+            <div class="info-group">
+                <label>Email:</label>
+                <p id="email"><%= cliente.email %></p>
+            </div>
+            <div class="info-group">
+                <label>Senha:</label>
+                <p id="password"><%= cliente.senha %></p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
