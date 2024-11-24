@@ -1,6 +1,7 @@
 import {PrismaClient} from "@prisma/client";
 import {PrismaClientDatasource} from "../database/prisma/PrismaClientDatasource";
 import {Cliente} from "../domain/cliente/Cliente";
+import {CartaoCredito} from "../domain/cartaoCredito/CartaoCredito";
 
 export class ClienteDAO {
   private readonly prisma: PrismaClient;
@@ -11,6 +12,7 @@ export class ClienteDAO {
 
   async save(cliente: Cliente) {
     const endereco = cliente.enderecos[0]
+    const cartao: CartaoCredito = cliente.cartoes[0]
     return this.prisma.clientes.create({
       data: {
         nome: cliente.nome,
@@ -34,6 +36,16 @@ export class ClienteDAO {
             paisId: endereco.pais.id,
             estadoId: endereco.estado.id,
             cidadeId: endereco.cidade.id
+          }
+        },
+        cartoes: {
+          create: {
+            nome: cartao.nome,
+            numero: cartao.numero,
+            bandeira: cartao.bandeira,
+            validade: cartao.validade,
+            cvv: cartao.cvv,
+            isMain: cartao.ePrincipal
           }
         }
       },

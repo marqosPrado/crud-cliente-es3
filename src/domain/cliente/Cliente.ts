@@ -1,5 +1,6 @@
 import {Genero} from "./enum/Genero";
 import {Endereco} from "../endereco/Endereco";
+import {CartaoCredito} from "../cartaoCredito/CartaoCredito";
 
 export class Cliente {
   private _id?: number;
@@ -12,8 +13,18 @@ export class Cliente {
   private _senha!: string;
   private _status!: boolean;
   private _enderecos!: Endereco[]
+  private _cartoes!: CartaoCredito[]
 
-  constructor(nome: string, dataNascimento: string, genero: Genero, email: string, cpf: string, senha: string, endereco: Endereco) {
+  constructor(
+    nome: string,
+    dataNascimento: string,
+    genero: Genero,
+    email: string,
+    cpf: string,
+    senha: string,
+    endereco: Endereco,
+    cartao: CartaoCredito
+  ) {
     this._nome = nome;
     this.dataNascimento = dataNascimento;
     this._genero = genero;
@@ -23,6 +34,7 @@ export class Cliente {
     this._status = true;
     this._codigo = this.gerarCodigo();
     this._enderecos = [endereco]
+    this._cartoes = [cartao]
   }
 
   addEndereco(endereco: Endereco): void {
@@ -32,9 +44,19 @@ export class Cliente {
     this._enderecos.push(endereco);
   }
 
+  addCartaoCredito(cartao: CartaoCredito): void {
+    if (!cartao) {
+      throw new Error("Cartão de crédito não pode ser null");
+    }
+    this._cartoes.push(cartao);
+  }
 
   get enderecos(): Endereco[] {
     return this._enderecos;
+  }
+
+  get cartoes(): CartaoCredito[] {
+    return this._cartoes;
   }
 
   private gerarCodigo(): string {
