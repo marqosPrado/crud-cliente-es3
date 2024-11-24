@@ -19,6 +19,7 @@ model Clientes {
   status Boolean @default(true)
 
   enderecos Enderecos[]
+  cartoes CartoesCredito[]
 }
 
 model Paises {
@@ -82,4 +83,17 @@ model Enderecos {
   @@index([estadoId])
   @@index([cidadeId])
   @@index([clienteId])
+}
+
+model CartoesCredito {
+  id        Int      @id @default(autoincrement())
+  nome      String   @db.VarChar(50)
+  numero    String   @db.VarChar(16)
+  bandeira  String   @db.VarChar(16)
+  validade  String   @db.VarChar(7)
+  cvv       String   @db.Char(3)
+  isMain    Boolean  @db.Boolean
+
+  client   Clientes @relation(fields: [clienteId], references: [id])
+  clienteId Int
 }

@@ -194,6 +194,68 @@
 
             <div id="form-three" style="display: none" class="form-three form-step">
                 <div class="form-information">
+                    <h3>Informações do Cartão de Crédito</h3>
+                    <p>Por favor, cadastre um cartão de crédito válido</p>
+                </div>
+
+                <div class="container-input">
+                    <div class="input">
+                        <label class="input-label">Número do cartão:</label>
+                        <%- include('./../components/input/input', {
+                        placeHolder: "0000 0000 0000 0000*",
+                        type: "text",
+                        name: "numeroCartao",
+                        id: "numero-cartao-input"
+                        }) %>
+                    </div>
+                    <div class="input">
+                        <label class="input-label">Nome do Titular:</label>
+                        <%- include('./../components/input/input', {
+                        placeHolder: "Nome do titular*",
+                        type: "text",
+                        name: "nomeImpresso",
+                        id: "numero-cartao-input"
+                        }) %>
+                    </div>
+                    <div class="input">
+                        <label class="input-label">Bandeira do Cartão:</label>
+                        <%- include('./../components/selectInput/selectInput', {
+                        name: 'bandeira',
+                        id: 'bandeira',
+                        disabled: false,
+                        options: [
+                            { value: '', label: 'Selecione', selected: true, disabled: true },
+                            { value: 'Visa', label: 'Visa', selected: true, disabled: false },
+                            { value: 'Mastercard', label: 'Mastercard', selected: true, disabled: false },
+                            { value: 'American express', label: 'American Express', selected: true, disabled: false },
+                            { value: 'Elo', label: 'Elo', selected: true, disabled: false },
+                            { value: 'Hipercard', label: 'Hipercard', selected: true, disabled: false }
+                        ]
+                        }) %>
+                    </div>
+                    <div class="input">
+                        <label class="input-label">Validade:</label>
+                        <%- include('./../components/input/input', {
+                            placeHolder: "MM/AA*",
+                            type: "text",
+                            name: "validade",
+                            id: "validade-cartao-input"
+                        }) %>
+                    </div>
+                    <div class="input">
+                        <label class="input-label">CVV:</label>
+                        <%- include('./../components/input/input', {
+                            placeHolder: "000*",
+                            type: "text",
+                            name: "cvv",
+                            id: "cvv-cartao-input"
+                        }) %>
+                    </div>
+                </div>
+            </div>
+
+            <div id="form-fours" style="display: none" class="form-fours form-step">
+                <div class="form-information">
                     <h3>Informações de Segurança</h3>
                     <p>Por favor, crie suas credenciais de acesso nos campos abaixo.</p>
                 </div>

@@ -14,6 +14,7 @@ import {Estado} from "../domain/endereco/Estado";
 import {Pais} from "../domain/endereco/Pais";
 import {Endereco} from "../domain/endereco/Endereco";
 import {createClientSchema} from "../validations/bodyValidations/createClientSchema";
+import {CartaoCredito} from "../domain/cartaoCredito/CartaoCredito";
 
 export class ClienteService {
   private readonly clienteDAO: ClienteDAO;
@@ -51,7 +52,12 @@ export class ClienteService {
       observacoes,
       pais,
       estado,
-      cidade
+      cidade,
+      nomeImpresso,
+      numeroCartao,
+      bandeira,
+      validade,
+      cvv
     } = clienteData;
 
     const [paisId, estadoId, cidadeId] = await Promise.all([
@@ -101,6 +107,14 @@ export class ClienteService {
       paisEntity
     );
 
+    const cartao = new CartaoCredito(
+      nomeImpresso,
+      numeroCartao,
+      bandeira,
+      validade,
+      cvv
+    )
+
     const cliente = new Cliente(
       nome,
       dataNascimento,
@@ -108,7 +122,8 @@ export class ClienteService {
       email,
       cpf,
       senha,
-      endereco
+      endereco,
+      cartao
     );
     this.validacoes.forEach((validacao) => validacao.processar(cliente))
     await this.validarCliente(cliente);
