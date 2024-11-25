@@ -39,18 +39,21 @@
     </div>
 
     <div class="input">
+        <%
+            const propertiesGenero = {
+                name: 'genero',
+                id: 'genero',
+                disabled: false,
+                options: [
+                    { value: '', label: 'Selecione', selected: !cliente.genero, disabled: true },
+                    { value: 'MASCULINO', label: 'Masculino', selected: cliente.genero === 'MASCULINO' },
+                    { value: 'FEMININO', label: 'Feminino', selected: cliente.genero === 'FEMININO' },
+                    { value: 'OUTRO', label: 'Outro', selected: cliente.genero === 'OUTRO' }
+                ]
+            }
+        %>
         <label class="input-label">Gênero:</label>
-        <%- include('./../components/selectInput/selectInput', {
-            name: 'genero',
-            id: 'genero',
-            disabled: false,
-            options: [
-                { value: '', label: 'Selecione', selected: true, disabled: true },
-                { value: 'MASCULINO', label: 'Masculino' },
-                { value: 'FEMININO', label: 'Feminino' },
-                { value: 'OUTRO', label: 'Outro' }
-            ]
-        }) %>
+        <%- include('./../components/selectInput/selectInput', propertiesGenero) %>
     </div>
 
     <div id="container-btn-submit">
