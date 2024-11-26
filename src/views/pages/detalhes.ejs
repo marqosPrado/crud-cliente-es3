@@ -82,55 +82,61 @@
                 </div>
             </div>
         </div>
-        <div class="card-content">
-            <div class="info-group">
-                <label>Tipo de Logradouro:</label>
-                <p id="addressType"><%= cliente.enderecos[0].tipoLogradouro %></p>
+
+        <% cliente.enderecos.forEach((endereco, index) => { %>
+            <div style="margin-left: 20px" class="info-group">
+                <h3>Endereço <%= index + 1 %></h3>
             </div>
-            <div class="info-group">
-                <label>Logradouro:</label>
-                <p id="street"><%= cliente.enderecos[0].logradouro %></p>
+
+            <div class="card-content">
+                <div class="info-group">
+                    <label>Tipo de Logradouro:</label>
+                    <p id="addressType"><%= endereco.tipoLogradouro %></p>
+                </div>
+                <div class="info-group">
+                    <label>Logradouro:</label>
+                    <p id="street"><%= endereco.logradouro %></p>
+                </div>
+                <div class="info-group">
+                    <label>Bairro:</label>
+                    <p id="neighborhood"><%= endereco.bairro %></p>
+                </div>
+                <div class="info-group">
+                    <label>Complemento:</label>
+                    <p id="complement"><%= endereco.complemento %></p>
+                </div>
+                <div class="info-group">
+                    <label>Número:</label>
+                    <p id="number"><%= endereco.numero %></p>
+                </div>
+                <div class="info-group">
+                    <label>CEP:</label>
+                    <p id="zipCode"><%= endereco.cep %></p>
+                </div>
+                <div class="info-group">
+                    <label>País:</label>
+                    <p id="country"><%= endereco.pais.nome %></p>
+                </div>
+                <div class="info-group">
+                    <label>Estado:</label>
+                    <p id="state"><%= endereco.estado.nome %></p>
+                </div>
+                <div class="info-group">
+                    <label>Cidade:</label>
+                    <p id="city"><%= endereco.cidade.nome %></p>
+                </div>
+                <div class="info-group">
+                    <% let isDeliveryAddress = endereco.eEnderecoEntrega ? 'Sim' : 'Não'; %>
+                    <label>Endereço de Entrega:</label>
+                    <p id="isDeliveryAddress"><%= isDeliveryAddress %></p>
+                </div>
+                <div class="info-group full-width">
+                    <label>Observações:</label>
+                    <p id="observations"><%= endereco.observacoes %></p>
+                </div>
             </div>
-            <div class="info-group">
-                <label>Bairro:</label>
-                <p id="neighborhood"><%= cliente.enderecos[0].bairro %></p>
-            </div>
-            <div class="info-group">
-                <label>Complemento:</label>
-                <p id="complement"><%= cliente.enderecos[0].complemento %></p>
-            </div>
-            <div class="info-group">
-                <label>Número:</label>
-                <p id="number"><%= cliente.enderecos[0].numero %></p>
-            </div>
-            <div class="info-group">
-                <label>CEP:</label>
-                <p id="zipCode"><%= cliente.enderecos[0].cep %></p>
-            </div>
-            <div class="info-group">
-                <label>País:</label>
-                <p id="country"><%= cliente.enderecos[0].pais.nome %></p>
-            </div>
-            <div class="info-group">
-                <label>Estado:</label>
-                <p id="state"><%= cliente.enderecos[0].estado.nome %></p>
-            </div>
-            <div class="info-group">
-                <label>Cidade:</label>
-                <p id="city"><%= cliente.enderecos[0].cidade.nome %></p>
-            </div>
-            <div class="info-group">
-                <%
-                    let isDeliveryAddress = cliente.enderecos[0].eEnderecoEntrega ? 'Sim' : 'Não';
-                %>
-                <label>Endereço de Entrega:</label>
-                <p id="isDeliveryAddress"><%= isDeliveryAddress %></p>
-            </div>
-            <div class="info-group full-width">
-                <label>Observações:</label>
-                <p id="observations"><%= cliente.enderecos[0].observacoes %></p>
-            </div>
-        </div>
+            <hr>
+        <% }); %>
     </div>
 
     <div class="card" id="credit-card">
