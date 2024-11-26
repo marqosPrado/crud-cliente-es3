@@ -70,7 +70,12 @@
                         <img width="32px" height="32px" src="https://img.icons8.com/sf-regular/48/add.png" alt="add"/>
                     </a>
                 </div>
-                <%
+            </div>
+        </div>
+
+        <% cliente.enderecos.forEach((endereco, index) => { %>
+            <div style="margin-left: 20px" class="end-header">
+                <h3>Endereço <%= index + 1 %></h3><%
                     const pathEditEnd = `/cliente/${id}/edit`
                 %>
                 <div class="icon-header">
@@ -80,12 +85,6 @@
                         </svg>
                     </a>
                 </div>
-            </div>
-        </div>
-
-        <% cliente.enderecos.forEach((endereco, index) => { %>
-            <div style="margin-left: 20px" class="info-group">
-                <h3>Endereço <%= index + 1 %></h3>
             </div>
 
             <div class="card-content">

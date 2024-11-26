@@ -71,6 +71,13 @@ h1 {
     margin-bottom: 15px;
 }
 
+.end-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
 .info-group.full-width {
     width: 100%;
 }
