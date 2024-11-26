@@ -139,7 +139,6 @@ export class ClienteService {
     if (!client) {
       throw new Error('Cliente não encontrado')
     }
-    console.log(client)
     return client;
   }
 

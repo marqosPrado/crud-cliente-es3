@@ -63,3 +63,5 @@ function clearDropdown(dropdown) {
         dropdown.removeChild(dropdown.firstChild);
     }
 }
+
+setupPaisesEventListener();

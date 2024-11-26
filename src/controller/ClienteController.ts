@@ -3,12 +3,26 @@ import { z } from "zod";
 import { ClienteService } from "../service/ClienteService";
 import { createClientSchema } from "../validations/bodyValidations/createClientSchema";
 import { validationSchema } from "../middlewares/client/validationSchema";
+import {EnderecoService} from "../service/Endereco/EnderecoService";
+import {PaisDAO} from "../dao/endereco/PaisDAO";
+import {EstadoDAO} from "../dao/endereco/EstadoDAO";
+import {CidadeDAO} from "../dao/endereco/CidadeDAO";
+import {Cidade} from "../domain/endereco/Cidade";
+import {Estado} from "../domain/endereco/Estado";
+import { Pais } from "../domain/endereco/Pais";
+import {Endereco} from "../domain/endereco/Endereco";
 
 export class ClienteController {
+  private readonly paisDao: PaisDAO;
+  private readonly estadoDao: EstadoDAO;
+  private readonly cidadeDao: CidadeDAO;
   private readonly app: Express;
 
-  constructor(private readonly clienteService: ClienteService, app: Express) {
+  constructor(private readonly clienteService: ClienteService, private readonly enderecoService: EnderecoService, app: Express) {
     this.app = app;
+    this.paisDao = new PaisDAO();
+    this.estadoDao = new EstadoDAO();
+    this.cidadeDao = new CidadeDAO();
     this.configurarRotas();
   }
 
@@ -107,6 +121,91 @@ export class ClienteController {
     }
   }
 
+  async addEndereco(req: Request, res: Response) {
+    console.log("chegou aqui")
+    try {
+      const clientId = Number(req.params.id);
+
+      const {
+        tipoLogradouro,
+        logradouro,
+        numero,
+        bairro,
+        cep,
+        complemento,
+        pais,
+        estado,
+        cidade,
+        eEnderecoEntrega,
+        observacoes,
+      } = req.body;
+
+      const [paisId, estadoId, cidadeId] = await Promise.all([
+        this.paisDao.findById(Number(pais)),
+        this.estadoDao.findById(Number(estado)),
+        this.cidadeDao.findById(Number(cidade))
+      ]);
+
+
+      if (!paisId) {
+        throw new Error('País não encontrado')
+      }
+
+      if (!estadoId) {
+        throw new Error('Estado não encontrado')
+      }
+
+      if (!cidadeId) {
+        throw new Error('Cidade não encontrada')
+      }
+
+      const cidadeEntity = new Cidade(cidadeId.id, cidadeId.nome);
+      const estadoEntity = new Estado(estadoId.id, estadoId.nome);
+      estadoEntity.cidade = cidadeEntity;
+
+      const paisEntity = new Pais(paisId.id, paisId.nome, [estadoEntity], paisId.codigo);
+      paisEntity.estado = [estadoEntity];
+
+      const tipoEndereco = eEnderecoEntrega === 'true'
+      let parsedNum;
+      try {
+        parsedNum = parseInt(numero)
+      } catch (error) {
+        throw new Error('Número inválido')
+      }
+
+      const endereco = new Endereco(
+        logradouro,
+        tipoLogradouro,
+        parsedNum,
+        bairro,
+        cep,
+        observacoes,
+        complemento,
+        tipoEndereco,
+        cidadeEntity,
+        estadoEntity,
+        paisEntity
+      );
+
+      const newEndereco = await this.enderecoService.save(endereco, clientId);
+      res.status(201).send(newEndereco);
+    } catch (error) {
+      res.status(500).send("Houve um problema inesperado, tente novamente mais tarde")
+    }
+  }
+
+  async paginaAddEndereco(req: Request, res: Response) {
+    try {
+      const clientId = Number(req.params.id);
+      const cliente = await this.clienteService.findClientById(clientId);
+      const enderecos = cliente.enderecos;
+      res.status(200).render("enderecos-new.ejs", { enderecos: enderecos });
+    } catch (error) {
+      res.status(500).send("Houve um problema inesperado, tente novamente mais tarde");
+    }
+  }
+
   private configurarRotas() {
     this.app.post(
       "/cliente/cadastro",
@@ -141,6 +240,16 @@ export class ClienteController {
     this.app.patch(
       "/cliente/:id/edicao",
       this.editarCliente.bind(this)
+    )
+
+    this.app.get(
+      "/cliente/:id/enderecos/new",
+      this.paginaAddEndereco.bind(this)
+    )
+
+    this.app.post(
+      "/cliente/:id/enderecos/new",
+      this.addEndereco.bind(this)
     )
   }
 }
