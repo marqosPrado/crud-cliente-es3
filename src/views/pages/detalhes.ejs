@@ -75,8 +75,10 @@
 
         <% cliente.enderecos.forEach((endereco, index) => { %>
             <div style="margin-left: 20px" class="end-header">
-                <h3>Endereço <%= index + 1 %></h3><%
-                    const pathEditEnd = `/cliente/${id}/edit`
+                <h3>Endereço <%= index + 1 %></h3>
+                <%
+                    const endId = endereco.id
+                    const pathEditEnd = `/cliente/endereco/${endId}/edit`
                 %>
                 <div class="icon-header">
                     <a style="display: flex; justify-content: center; align-items: center;" href="<%= pathEditEnd %>">

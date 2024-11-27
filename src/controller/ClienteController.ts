@@ -206,6 +206,91 @@ export class ClienteController {
     }
   }
 
+  async paginaEditEndereco(req: Request, res: Response) {
+    try {
+      const addressId = Number(req.params.id);
+      const address = await this.enderecoService.findEndereco(addressId);
+      console.log(address)
+      res.status(200).render("enderecos-edit.ejs", { endereco: address });
+    } catch (error) {
+      res.status(500).send("Houve um problema inesperado, tente novamente mais tarde");
+    }
+  }
+
+  async editEndereco(req: Request, res: Response) {
+    try {
+      const addressId = Number(req.params.id);
+
+      const {
+        tipoLogradouro,
+        logradouro,
+        numero,
+        bairro,
+        cep,
+        complemento,
+        pais,
+        estado,
+        cidade,
+        eEnderecoEntrega,
+        observacoes,
+      } = req.body;
+
+      const [paisId, estadoId, cidadeId] = await Promise.all([
+        this.paisDao.findById(Number(pais)),
+        this.estadoDao.findById(Number(estado)),
+        this.cidadeDao.findById(Number(cidade))
+      ]);
+
+
+      if (!paisId) {
+        throw new Error('País não encontrado')
+      }
+
+      if (!estadoId) {
+        throw new Error('Estado não encontrado')
+      }
+
+      if (!cidadeId) {
+        throw new Error('Cidade não encontrada')
+      }
+
+      const cidadeEntity = new Cidade(cidadeId.id, cidadeId.nome);
+      const estadoEntity = new Estado(estadoId.id, estadoId.nome);
+      estadoEntity.cidade = cidadeEntity;
+
+      const paisEntity = new Pais(paisId.id, paisId.nome, [estadoEntity], paisId.codigo);
+      paisEntity.estado = [estadoEntity];
+
+      const tipoEndereco = eEnderecoEntrega === 'true'
+      let parsedNum;
+      try {
+        parsedNum = parseInt(numero)
+      } catch (error) {
+        throw new Error('Número inválido')
+      }
+
+      const endereco = new Endereco(
+        logradouro,
+        tipoLogradouro,
+        parsedNum,
+        bairro,
+        cep,
+        observacoes,
+        complemento,
+        tipoEndereco,
+        cidadeEntity,
+        estadoEntity,
+        paisEntity
+      );
+
+      const address = await this.enderecoService.editEndereco(addressId, endereco);
+      res.status(200).send(address);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  }
+
+
   private configurarRotas() {
     this.app.post(
       "/cliente/cadastro",
@@ -250,6 +335,16 @@ export class ClienteController {
     this.app.post(
       "/cliente/:id/enderecos/new",
       this.addEndereco.bind(this)
+    )
+
+    this.app.get(
+      "/cliente/endereco/:id/edit",
+      this.paginaEditEndereco.bind(this)
+    )
+
+    this.app.post(
+      "/cliente/endereco/:id/edit",
+      this.editEndereco.bind(this)
     )
   }
 }

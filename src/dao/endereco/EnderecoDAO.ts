@@ -35,4 +35,25 @@ export class EnderecoDAO {
       }
     });
   }
+
+  async update(addressId: number, endereco: Endereco) {
+    return this.prisma.enderecos.update({
+      where: {
+        id: addressId
+      },
+      data: {
+        logradouro: endereco.logradouro,
+        tipoLogradouro: endereco.tipoLograduro,
+        numero: endereco.numero,
+        bairro: endereco.bairro,
+        cep: endereco.cep,
+        complemento: endereco.complemento,
+        observacoes: endereco.observacoes,
+        eEnderecoEntrega: endereco.eEnderecoEntrega,
+        cidadeId: endereco.cidade.id,
+        estadoId: endereco.estado.id,
+        paisId: endereco.pais.id
+      }
+    });
+  }
 }
