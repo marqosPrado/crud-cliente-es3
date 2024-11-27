@@ -1,6 +1,6 @@
 .main-header {
     width: 100%;
-    background-color: #5b68e9;
+    background: linear-gradient(to right, #5361e8, #8d96ff);
     padding: 10px 0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

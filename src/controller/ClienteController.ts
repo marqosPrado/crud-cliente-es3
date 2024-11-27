@@ -26,6 +26,14 @@ export class ClienteController {
     this.configurarRotas();
   }
 
+  async home(req: Request, res: Response) {
+    try {
+      res.status(200).render("index.ejs");
+    } catch (e) {
+      res.status(500).send("Houve um problema inesperado, tente novamente mais tarde");
+    }
+  }
+
   async cadastrarCliente(req: Request, res: Response): Promise<void> {
     try {
       let parsedClient = req.body;
@@ -302,6 +310,11 @@ export class ClienteController {
 
 
   private configurarRotas() {
+    this.app.get(
+      "/",
+      this.home.bind(this)
+    )
+
     this.app.post(
       "/cliente/cadastro",
       validationSchema(createClientSchema),
