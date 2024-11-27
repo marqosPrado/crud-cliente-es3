@@ -6,8 +6,19 @@
     <title>Lista de Clientes Registrados</title>
     <link rel="stylesheet" href="/css/index.css" type="text/css">
     <link rel="stylesheet" href="/css/consulta/consulta.css" type="text/css">
+    <link rel="stylesheet" href="/css/header/header.css" type="text/css">
 </head>
 <body>
+<header class="main-header">
+    <nav class="navbar">
+        <div class="logo">
+            <a href="/">Cliente</a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="/cliente/cadastro">Cadastro</a></li>
+        </ul>
+    </nav>
+</header>
 <div class="container">
     <div class="card">
         <div class="card-header">
@@ -15,7 +26,50 @@
         </div>
         <div class="card-content">
             <div class="search-and-filter">
-                <input type="text" class="search-input" placeholder="Buscar por nome, CPF ou email">
+                <form id="search-form" method="GET" class="filter-form">
+                    <%- include('./../components/input/input', {
+                    placeHolder: "Nome",
+                    type: "text",
+                    name: "nome",
+                    id: "nome-input",
+                    value: ""
+                    }) %>
+
+                    <%- include('./../components/input/input', {
+                    placeHolder: "CPF",
+                    type: "text",
+                    name: "cpf",
+                    id: "cpf-input",
+                    value: ""
+                    }) %>
+
+                    <%- include('./../components/input/input', {
+                    placeHolder: "E-mail",
+                    type: "text",
+                    name: "email",
+                    id: "email-input",
+                    value: ""
+                    }) %>
+
+                    <%- include('./../components/input/input', {
+                    placeHolder: "Telefone",
+                    type: "text",
+                    name: "telefone",
+                    id: "telefone-input",
+                    value: ""
+                    }) %>
+
+                    <div id="container-btn-submit">
+                        <%- include('./../components/button/button', {
+                        type: "submit",
+                        id: "btn-submit",
+                        style: "primary-button default-button",
+                        disable: "",
+                        textContent: "Buscar"
+                        })%>
+                    </div>
+
+                </form>
             </div>
             <table class="client-table">
                 <thead>
@@ -57,15 +111,6 @@
                 <% } %>
                 </tbody>
             </table>
-            <div class="pagination">
-                <div class="pagination-info">
-                    Mostrando 1 - 5 de 5 clientes
-                </div>
-                <div class="pagination-controls">
-                    <button class="btn btn-prev" disabled>Anterior</button>
-                    <button class="btn btn-next" disabled>Próxima</button>
-                </div>
-            </div>
         </div>
     </div>
 </div>

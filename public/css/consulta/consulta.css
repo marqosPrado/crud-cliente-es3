@@ -8,13 +8,12 @@
 body {
     background-color: #f3f4f6;
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
 }
 
 .container {
     width: 100%;
+    margin: 10% auto;
     max-width: 1200px;
     padding: 20px;
 }
@@ -44,6 +43,7 @@ body {
 
 .search-and-filter {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
@@ -140,6 +140,57 @@ body {
 .btn:disabled {
     background-color: #9ca3af;
     cursor: not-allowed;
+}
+
+.search-and-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    flex: 1 1 200px;
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.btn-search {
+    padding: 8px 16px;
+    background-color: #3b82f6;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn-search:hover {
+    background-color: #2563eb;
+}
+
+.client-table th,
+.client-table td {
+    padding: 12px;
+    text-align: center;
+}
+
+.filter-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+
+@media (max-width: 768px) {
+    .search-and-filter {
+        flex-direction: column;
+    }
+    .search-input {
+        width: 100%;
+    }
 }
 
 @media (max-width: 768px) {

@@ -3,10 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalhes do Cliente</title>
     <link rel="stylesheet" href="/css/detalhes/detalhes.css">
+    <link rel="stylesheet" href="/css/header/header.css" type="text/css">
+    <title>Detalhes do Cliente</title>
 </head>
 <body>
+<header class="main-header">
+    <nav class="navbar">
+        <div class="logo">
+            <a href="/">Cliente</a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="/cliente/cadastro">Cadastro</a></li>
+            <li><a href="/cliente/consulta">Consulta</a></li>
+        </ul>
+    </nav>
+</header>
 <div class="container">
     <% const id = cliente.id %>
     <h1>Detalhes do Cliente</h1>

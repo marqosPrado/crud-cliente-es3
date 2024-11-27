@@ -26,6 +26,14 @@ export class ClienteController {
     this.configurarRotas();
   }
 
+  async home(req: Request, res: Response) {
+    try {
+      res.status(200).render("index.ejs");
+    } catch (e) {
+      res.status(500).send("Houve um problema inesperado, tente novamente mais tarde");
+    }
+  }
+
   async cadastrarCliente(req: Request, res: Response): Promise<void> {
     try {
       let parsedClient = req.body;
@@ -290,8 +298,23 @@ export class ClienteController {
     }
   }
 
+  async clienteConsulta(req: Request, res: Response) {
+    try {
+      const { nome, cpf, email, telefone } = req.body;
+      const clientes = await this.clienteService.findClientByFilter({ nome, cpf, email });
+      res.status(200).send(clientes);
+    } catch (error) {
+      res.status(500).send("Houve um problema inesperado, tente novamente mais tarde");
+    }
+  }
+
 
   private configurarRotas() {
+    this.app.get(
+      "/",
+      this.home.bind(this)
+    )
+
     this.app.post(
       "/cliente/cadastro",
       validationSchema(createClientSchema),
@@ -345,6 +368,11 @@ export class ClienteController {
     this.app.post(
       "/cliente/endereco/:id/edit",
       this.editEndereco.bind(this)
+    )
+
+    this.app.post(
+      "/cliente/consulta",
+      this.clienteConsulta.bind(this)
     )
   }
 }

@@ -1,5 +1,6 @@
-import { setupInactiveClient } from './consulta.js'
+import {setupInactiveClient, setupSearchSubmit} from './consulta.js'
 
 document.addEventListener('DOMContentLoaded', () => {
     setupInactiveClient();
+    setupSearchSubmit();
 })
