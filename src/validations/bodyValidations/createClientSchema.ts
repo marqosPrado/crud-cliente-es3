@@ -11,6 +11,8 @@ export const createClientSchema = z.object({
   }),
   email: z.string(),
   cpf: z.string(),
+  telefone: z.string(),
+  tipoTelefone: z.string(),
   senha: z.string(),
   logradouro: z.string(),
   tipoLogradouro: z.nativeEnum(TipoLogradouro, {
