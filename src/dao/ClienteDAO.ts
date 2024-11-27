@@ -97,4 +97,35 @@ export class ClienteDAO {
       }
     })
   }
+
+  async findClientById(clientId: number) {
+    return this.prisma.clientes.findFirst({
+      where: {
+        id: clientId
+      },
+      include: {
+        enderecos: {
+          include: {
+            pais: true,
+            estado: true,
+            cidade: true
+          }
+        },
+        cartoes: true
+      }
+    })
+  }
+
+  async updateClient(clientId: number, clientData: { nome: string, cpf: string, genero: string }) {
+    return this.prisma.clientes.update({
+      where: {
+        id: clientId
+      },
+      data: {
+        nome: clientData.nome,
+        cpf: clientData.cpf,
+        genero: clientData.genero
+      }
+    })
+  }
 }

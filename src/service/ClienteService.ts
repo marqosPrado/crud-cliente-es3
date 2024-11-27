@@ -134,6 +134,29 @@ export class ClienteService {
     return this.clienteDAO.disableClient(clientId);
   }
 
+  async findClientById(clientId: number) {
+    const client = await this.clienteDAO.findClientById(clientId);
+    if (!client) {
+      throw new Error('Cliente não encontrado')
+    }
+    return client;
+  }
+
+  async editClient(clientId: number, clientData: { nome: string, cpf: string, genero: string }) {
+    const client = await this.clienteDAO.findClientById(clientId);
+    if (!client) {
+      throw new Error('Cliente não encontrado')
+    }
+
+    const cpfAlreadyExists = await this.clienteDAO.findByCpf(clientData.cpf);
+    if (cpfAlreadyExists && cpfAlreadyExists.id !== clientId) {
+      throw new Error('CPF já cadastrado')
+    }
+
+    const updatedClient = await this.clienteDAO.updateClient(clientId, clientData);
+    return updatedClient;
+  }
+
   private async validarCliente(cliente: Cliente) {
     if (await this.eUsuarioCadastrado(cliente.email)) {
       throw new EmailCadastradoException();

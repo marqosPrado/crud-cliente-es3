@@ -10,30 +10,50 @@ export class EnderecoDAO {
   }
 
   async save(endereco: Endereco, clienteId: number) {
-    this.prisma.enderecos.create({
+    return this.prisma.enderecos.create({
       data: {
         logradouro: endereco.logradouro,
         tipoLogradouro: endereco.tipoLograduro,
         numero: endereco.numero,
         bairro: endereco.bairro,
-        cep: endereco.bairro,
+        cep: endereco.cep,
         complemento: endereco.complemento,
         observacoes: endereco.observacoes,
         eEnderecoEntrega: endereco.eEnderecoEntrega,
-
-        pais: {
-          connect: { id: endereco.pais.id },
-        },
-        estado: {
-          connect: { id: endereco.estado.id },
-        },
-        cidade: {
-          connect: { id: endereco.cidade.id },
-        },
-        cliente: {
-          connect: { id: clienteId },
-        },
+        cidadeId: endereco.cidade.id,
+        estadoId: endereco.estado.id,
+        paisId: endereco.pais.id,
+        clienteId: clienteId
       },
+    });
+  }
+
+  async findById(enderecoId: number) {
+    return this.prisma.enderecos.findUnique({
+      where: {
+        id: enderecoId
+      }
+    });
+  }
+
+  async update(addressId: number, endereco: Endereco) {
+    return this.prisma.enderecos.update({
+      where: {
+        id: addressId
+      },
+      data: {
+        logradouro: endereco.logradouro,
+        tipoLogradouro: endereco.tipoLograduro,
+        numero: endereco.numero,
+        bairro: endereco.bairro,
+        cep: endereco.cep,
+        complemento: endereco.complemento,
+        observacoes: endereco.observacoes,
+        eEnderecoEntrega: endereco.eEnderecoEntrega,
+        cidadeId: endereco.cidade.id,
+        estadoId: endereco.estado.id,
+        paisId: endereco.pais.id
+      }
     });
   }
 }

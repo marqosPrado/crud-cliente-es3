@@ -8,6 +8,7 @@ import {EstadoController} from "./controller/Endereco/EstadoController";
 import {EstadoService} from "./service/Endereco/EstadoService";
 import {PaisController} from "./controller/Endereco/PaisController";
 import {PaisService} from "./service/Endereco/PaisService";
+import {EnderecoService} from "./service/Endereco/EnderecoService";
 
 const app = express();
 const PORT = 3000;
@@ -17,7 +18,7 @@ app.use(expressStaticSetUp);
 app.use(express.urlencoded({ extended: true }));
 viewConfig(app);
 
-new ClienteController(new ClienteService(), app);
+new ClienteController(new ClienteService(), new EnderecoService(), app);
 const estadoController = new EstadoController(new EstadoService(), app);
 new PaisController(new PaisService(), app, estadoController)
 

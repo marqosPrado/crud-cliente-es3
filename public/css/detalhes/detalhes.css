@@ -1,0 +1,100 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #3498db;
+}
+
+.icon-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    background-color: #2980b9;
+    border-radius: 20%;
+}
+
+.add-edit-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.icon-header:hover {
+    background-color: #5d8bbb;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    overflow: hidden;;
+}
+
+.card h2 {
+    color: #fff;
+    margin: 0;
+    padding: 15px;
+}
+
+.card-content {
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.info-group {
+    width: 50%;
+    margin-bottom: 15px;
+}
+
+.end-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.info-group.full-width {
+    width: 100%;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: #7f8c8d;
+}
+
+p {
+    margin: 0;
+}
+
+@media (max-width: 600px) {
+    .info-group {
+        width: 100%;
+    }
+}

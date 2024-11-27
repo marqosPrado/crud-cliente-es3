@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/endereco/endereco.css">
+    <link rel="stylesheet" href="/css/index.css" type="text/css">
+    <title>Adicione mais um endereço</title>
+</head>
+<body>
+<form>
+    <div id="form-two" class="form-two form-step">
+        <div class="form-information">
+            <h3>Adicionar novo endereço</h3>
+            <p>Por favor, forneça os dados do seu endereço nos campos abaixo.</p>
+        </div>
+
+        <div class="end-container">
+            <div class="input">
+                <label class="input-label">Logradouro:</label>
+                <%- include('./../components/input/input', {
+                placeHolder: "Ex: Rua Antônio Batista",
+                type: "text",
+                name: "logradouro",
+                id: "logradouro-end-input",
+                value: ""
+                })%>
+            </div>
+            <div class="input">
+                <label class="input-label">Tipo de logradouro:</label>
+                <%- include('./../components/selectInput/selectInput', {
+                name: 'tipoLogradouro',
+                id: 'tipo-logradouro',
+                disabled: false,
+                options: [
+                { value: '', label: 'Selecione', selected: true, disabled: true },
+                { value: 'AVENIDA', label: 'Avenida' },
+                { value: 'RUA', label: 'Rua' },
+                ]
+                }) %>
+            </div>
+
+            <div class="input">
+                <label class="input-label">Bairro:</label>
+                <%- include('./../components/input/input', {
+                placeHolder: "Ex: Mogilar",
+                type: "text",
+                name: "bairro",
+                id: "bairro-end-input",
+                value: ""
+                }) %>
+            </div>
+
+            <div class="input">
+                <label class="input-label">Complemento:</label>
+                <%- include('./../components/input/input', {
+                placeHolder: "",
+                type: "text",
+                name: "complemento",
+                id: "complemento-end-input",
+                value: ""
+                }) %>
+            </div>
+
+            <div class="input">
+                <label class="input-label">Número:</label>
+                <%- include('./../components/input/input', {
+                placeHolder: "Ex: 100",
+                type: "number",
+                name: "numero",
+                id: "numero-end-input",
+                value: ""
+                }) %>
+            </div>
+
+            <div class="input">
+                <label class="input-label">CEP:</label>
+                <%- include('./../components/input/input', {
+                placeHolder: "00000-000",
+                type: "text",
+                name: "cep",
+                id: "cep-end-input",
+                value: ""
+                }) %>
+            </div>
+
+            <div class="input">
+                <label class="input-label">País:</label>
+                <%- include('./../components/selectInput/selectInput', {
+                name: 'pais',
+                id: 'pais',
+                disabled: false,
+                options: [
+                { value: '', label: 'Selecione', selected: true, disabled: false }
+                ]
+                }) %>
+            </div>
+
+            <div class="input">
+                <label class="input-label">Estado:</label>
+                <%- include('./../components/selectInput/selectInput', {
+                name: 'estado',
+                id: 'estado',
+                disabled: false,
+                options: [
+                { value: '', label: 'Selecione', selected: true, disabled: false }
+                ]
+                }) %>
+            </div>
+
+            <div class="input">
+                <label class="input-label">Cidade:</label>
+                <%- include('./../components/selectInput/selectInput', {
+                name: 'cidade',
+                id: 'cidade',
+                disabled: false,
+                options: [
+                { value: '', label: 'Selecione', selected: true, disabled: false }
+                ]
+                }) %>
+            </div>
+
+            <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;" class="input">
+                <input type="checkbox" id="eEnderecoEntrega" name="eEnderecoEntrega" value="true"/>
+                <label for="scales">É endereço de entrega?</label>
+            </div>
+
+        </div>
+        <div class="input">
+            <label class="input-label">Observações:</label>
+            <%- include('./../components/textArea/textArea', {
+            placeHolder: "Digite aqui suas observações...",
+            name: "observacoes",
+            id: "observacoes-end-input",
+            value: ""
+            }) %>
+        </div>
+
+        <div id="container-btn-submit">
+            <%- include('./../components/button/button', {
+            type: "submit",
+            id: "btn-salvar-alteracao",
+            style: "primary-button default-button",
+            disable: "",
+            textContent: "Salvar alterações"
+            })%>
+        </div>
+    </div>
+</form>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="module" src="/js/eventListeners/form/paisesEventListenner.js"></script>
+<script type="module" src="/js/pages/endereco/setupSubmitEndereco.js"></script>
+</body>
+</html>
+
