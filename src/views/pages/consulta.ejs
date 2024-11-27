@@ -15,7 +15,50 @@
         </div>
         <div class="card-content">
             <div class="search-and-filter">
-                <input type="text" class="search-input" placeholder="Buscar por nome, CPF ou email">
+                <form id="search-form" method="GET" class="filter-form">
+                    <%- include('./../components/input/input', {
+                    placeHolder: "Nome",
+                    type: "text",
+                    name: "nome",
+                    id: "nome-input",
+                    value: ""
+                    }) %>
+
+                    <%- include('./../components/input/input', {
+                    placeHolder: "CPF",
+                    type: "text",
+                    name: "cpf",
+                    id: "cpf-input",
+                    value: ""
+                    }) %>
+
+                    <%- include('./../components/input/input', {
+                    placeHolder: "E-mail",
+                    type: "text",
+                    name: "email",
+                    id: "email-input",
+                    value: ""
+                    }) %>
+
+                    <%- include('./../components/input/input', {
+                    placeHolder: "Telefone",
+                    type: "text",
+                    name: "telefone",
+                    id: "telefone-input",
+                    value: ""
+                    }) %>
+
+                    <div id="container-btn-submit">
+                        <%- include('./../components/button/button', {
+                        type: "submit",
+                        id: "btn-submit",
+                        style: "primary-button default-button",
+                        disable: "",
+                        textContent: "Buscar"
+                        })%>
+                    </div>
+
+                </form>
             </div>
             <table class="client-table">
                 <thead>

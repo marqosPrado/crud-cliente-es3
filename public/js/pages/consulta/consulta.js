@@ -39,3 +39,45 @@ function removeClientRow(clientId) {
         row.remove();
     }
 }
+
+export function setupSearchSubmit() {
+    const searchForm = document.querySelector('#search-form');
+    searchForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const nameValue = document.getElementById('nome-input').value || "";
+        const cpfValue = document.getElementById('cpf-input').value || "";
+        const emailValue = document.getElementById('email-input').value || "";
+        const phoneValue = document.getElementById('telefone-input').value || "";
+
+        searchClients(nameValue, cpfValue, emailValue, phoneValue);
+
+    })
+}
+
+async function searchClients(name, cpf, email, phone) {
+    const data = {
+        nome: name,
+        cpf: cpf,
+        email: email,
+        telefone: phone
+    }
+
+    try {
+        await axios.post(
+            '/cliente/consulta', data, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
+    } catch (error) {
+        console.error('Erro ao buscar clientes: ', error);
+        createAlertMessage(
+            'Erro ao buscar clientes',
+            'Não foi possível buscar os clientes. Tente novamente mais tarde.',
+            'Voltar'
+        );
+    }
+
+}
