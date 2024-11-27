@@ -157,6 +157,10 @@ export class ClienteService {
     return updatedClient;
   }
 
+  async findClientByFilter(filter: { nome: string, cpf: string, email: string }) {
+    return this.clienteDAO.findClientByFilter(filter);
+  }
+
   private async validarCliente(cliente: Cliente) {
     if (await this.eUsuarioCadastrado(cliente.email)) {
       throw new EmailCadastradoException();

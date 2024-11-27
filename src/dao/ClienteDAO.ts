@@ -128,4 +128,29 @@ export class ClienteDAO {
       }
     })
   }
+
+  async findClientByFilter(filter: { nome: string, cpf: string, email: string }) {
+    return this.prisma.clientes.findMany({
+      where: {
+        nome: {
+          contains: filter.nome
+        },
+        cpf: {
+          contains: filter.cpf
+        },
+        email: {
+          contains: filter.email
+        }
+      },
+      include: {
+        enderecos: {
+          include: {
+            pais: true,
+            estado: true,
+            cidade: true
+          }
+        }
+      }
+    })
+  }
 }
