@@ -1,5 +1,6 @@
 import {ClienteDAO} from "../dao/ClienteDAO";
 import { z } from "zod";
+import bcrypt from 'bcrypt';
 import {Cliente} from "../domain/cliente/Cliente";
 import {Validar} from "../strategy/Validar";
 import {ValidarEmail} from "../strategy/ValidarEmail";
@@ -22,6 +23,7 @@ export class ClienteService {
   private readonly estadoDAO: EstadoDAO;
   private readonly paisDAO: PaisDAO;
   private validacoes: Array<Validar>
+  private SALTROUNDS = 10;
 
   constructor() {
     this.clienteDAO = new ClienteDAO();
@@ -60,6 +62,8 @@ export class ClienteService {
       validade,
       cvv
     } = clienteData;
+
+    const hashedPassaword = await bcrypt.hash(senha, this.SALTROUNDS);
 
     const [paisId, estadoId, cidadeId] = await Promise.all([
       this.paisDAO.findById(parseInt(pais)),
@@ -123,7 +127,7 @@ export class ClienteService {
       email,
       cpf,
       telefone,
-      senha,
+      hashedPassaword,
       endereco,
       cartao
     );
@@ -190,4 +194,5 @@ export class ClienteService {
   private toString(date: Date) {
     return date.toString();
   }
+
 }
