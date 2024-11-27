@@ -21,6 +21,7 @@ export class ClienteDAO {
         codigo: cliente.codigo,
         email: cliente.email,
         cpf: cliente.cpf,
+        telefone: cliente.telefone,
         senha: cliente.senha,
         status: cliente.status,
         enderecos: {

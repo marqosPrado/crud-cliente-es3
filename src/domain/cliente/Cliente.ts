@@ -1,6 +1,7 @@
 import {Genero} from "./enum/Genero";
 import {Endereco} from "../endereco/Endereco";
 import {CartaoCredito} from "../cartaoCredito/CartaoCredito";
+import {date} from "zod";
 
 export class Cliente {
   private _id?: number;
@@ -10,6 +11,7 @@ export class Cliente {
   private _codigo!: string;
   private _email!: string;
   private _cpf!: string;
+  private _telefone!: string;
   private _senha!: string;
   private _status!: boolean;
   private _enderecos!: Endereco[]
@@ -21,6 +23,7 @@ export class Cliente {
     genero: Genero,
     email: string,
     cpf: string,
+    telefone: string,
     senha: string,
     endereco: Endereco,
     cartao: CartaoCredito
@@ -30,6 +33,7 @@ export class Cliente {
     this._genero = genero;
     this._email = email;
     this._cpf = cpf;
+    this._telefone = telefone;
     this._senha = senha;
     this._status = true;
     this._codigo = this.gerarCodigo();
@@ -147,5 +151,17 @@ export class Cliente {
 
   set status(value: boolean) {
     this._status = value;
+  }
+
+
+  get telefone(): string {
+    return this._telefone;
+  }
+
+  set telefone(value: string) {
+    if (!value) {
+      throw new Error("Telefone não pode ser null");
+    }
+    this._telefone = value;
   }
 }

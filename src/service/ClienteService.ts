@@ -41,6 +41,7 @@ export class ClienteService {
       genero,
       email,
       cpf,
+      telefone,
       senha,
       logradouro,
       tipoLogradouro,
@@ -121,6 +122,7 @@ export class ClienteService {
       genero,
       email,
       cpf,
+      telefone,
       senha,
       endereco,
       cartao

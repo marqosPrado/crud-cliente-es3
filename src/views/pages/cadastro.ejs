@@ -58,6 +58,31 @@
                     </div>
 
                     <div class="input">
+                        <label class="input-label">Telefone:</label>
+                        <%- include('./../components/input/input', {
+                        placeHolder: "(11) 91234-5678",
+                        type: "text",
+                        name: "telefone",
+                        id: "telefone-input",
+                        value: ""
+                        }) %>
+                    </div>
+
+                    <div class="input">
+                        <label class="input-label">Tipo do telefone</label>
+                        <%- include('./../components/selectInput/selectInput', {
+                        name: 'tipoTelefone',
+                        id: 'tipoTelefone',
+                        disabled: false,
+                        options: [
+                            { value: '', label: 'Selecione', selected: true, disabled: true },
+                            { value: 'CELULAR', label: 'Celular' },
+                            { value: 'FIXO', label: 'Fixo' },
+                        ]
+                        }) %>
+                    </div>
+
+                    <div class="input">
                         <label class="input-label">Data de nascimento:</label>
                         <%- include('./../components/input/input', {
                             placeHolder: "dd/mm/aaaa",
