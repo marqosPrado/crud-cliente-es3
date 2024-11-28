@@ -1,6 +1,7 @@
 import {PrismaClient} from "@prisma/client";
 import {PrismaClientDatasource} from "../../database/prisma/PrismaClientDatasource";
 
+
 export class CidadeDAO {
   private prisma: PrismaClient
 
@@ -16,13 +17,4 @@ export class CidadeDAO {
     })
   }
 
-  async findByStateName(estado: string) {
-    return this.prisma.cidades.findMany({
-      where: {
-        estado: {
-          nome: estado
-        }
-      }
-    })
-  }
 }

@@ -16,11 +16,13 @@ export function setupEditPersonalInfoForm() {
         const nameInputValue = document.getElementById('nome-input').value;
         const cpf = document.getElementById("cpf-input").value;
         const genero = document.getElementById("genero").value;
+        const telefone = document.getElementById("telefone-input").value
 
         const dataObj = {
             nome: nameInputValue,
             cpf: cpf,
-            genero: genero
+            genero: genero,
+            telefone: telefone
         };
 
         try {

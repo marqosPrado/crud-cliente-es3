@@ -40,6 +40,20 @@
 
     <div class="input">
         <%
+        const propertiesTelefone =  {
+            placeHolder: "11 956663258",
+            type: "text",
+            name: "telefone",
+            id: "telefone-input",
+            value: cliente.telefone
+        }
+        %>
+        <label class="input-label">Telefone:</label>
+        <%- include('./../components/input/input', propertiesTelefone) %>
+    </div>
+
+    <div class="input">
+        <%
             const propertiesGenero = {
                 name: 'genero',
                 id: 'genero',

@@ -64,12 +64,13 @@ export class ClienteController {
       nome: string;
       cpf: string;
       genero: string;
+      telefone: string;
     }
 
-    const { nome, cpf, genero } = req.body as EditarCliente;
+    const { nome, cpf, genero, telefone } = req.body as EditarCliente;
     try {
       const clientId = Number(req.params.id);
-      const updatedClient = await this.clienteService.editClient(clientId, { nome, cpf, genero });
+      const updatedClient = await this.clienteService.editClient(clientId, { nome, cpf, genero, telefone });
       res.status(200).send(updatedClient);
     } catch (error) {
       res.status(500).send("Houve um problema inesperado, tente novamente mais tarde");
@@ -111,7 +112,8 @@ export class ClienteController {
       const data = {
         nome: cliente.nome,
         cpf: cliente.cpf,
-        genero: cliente.genero
+        genero: cliente.genero,
+        telefone: cliente.telefone
       }
       res.status(200).render("dados-pessoais.ejs", { cliente: data });
     } catch (error) {

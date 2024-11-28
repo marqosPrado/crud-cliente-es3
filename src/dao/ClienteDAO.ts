@@ -117,17 +117,19 @@ export class ClienteDAO {
     })
   }
 
-  async updateClient(clientId: number, clientData: { nome: string, cpf: string, genero: string }) {
-    return this.prisma.clientes.update({
+  async updateClient(clientId: number, clientData: { nome: string, cpf: string, genero: string, telefone: string }) {
+    const client =  this.prisma.clientes.update({
       where: {
         id: clientId
       },
       data: {
         nome: clientData.nome,
         cpf: clientData.cpf,
-        genero: clientData.genero
+        genero: clientData.genero,
+        telefone: clientData.telefone
       }
     })
+    return client;
   }
 
   async findClientByFilter(filter: { nome: string, cpf: string, email: string }) {
