@@ -148,7 +148,7 @@ export class ClienteService {
     return client;
   }
 
-  async editClient(clientId: number, clientData: { nome: string, cpf: string, genero: string }) {
+  async editClient(clientId: number, clientData: { nome: string, cpf: string, genero: string, telefone: string }) {
     const client = await this.clienteDAO.findClientById(clientId);
     if (!client) {
       throw new Error('Cliente não encontrado')
@@ -156,7 +156,7 @@ export class ClienteService {
 
     const cpfAlreadyExists = await this.clienteDAO.findByCpf(clientData.cpf);
     if (cpfAlreadyExists && cpfAlreadyExists.id !== clientId) {
-      throw new Error('CPF já cadastrado')
+      throw new Error('CPF já cadastrado');
     }
 
     const updatedClient = await this.clienteDAO.updateClient(clientId, clientData);

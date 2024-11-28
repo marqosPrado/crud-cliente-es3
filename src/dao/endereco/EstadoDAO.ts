@@ -16,16 +16,6 @@ export class EstadoDAO {
     })
   }
 
-  async findByCountryName(pais: string) {
-    return this.prisma.estados.findMany({
-      where: {
-        pais: {
-          nome: pais
-        }
-      }
-    })
-  }
-
   async findCidadesByEstado(estadoId: number) {
     return this.prisma.cidades.findMany({
       where: {
